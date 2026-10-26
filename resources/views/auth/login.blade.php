@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
 @section('title', 'Login')
-@section('meta_description', 'Sign in to your PUP LET Reviewer account.')
+@section('meta_description', 'Sign in to your PUPLeT account.')
 
 @section('content')
     <div class="auth-layout">
         <div class="auth-sidebar">
             <div class="brand" style="position: absolute; top: 60px; left: 60px;">
-                <div class="brand-logo">★</div>
+                <div class="brand-logo" role="img" aria-label="PUP logo"></div>
                 <div>
-                    PUP LET Review
+                    PUPLeT
                     <small style="display: block; font-size: 0.65rem; opacity: 0.8;">Learn &middot; Practice &middot; Pass</small>
                 </div>
             </div>

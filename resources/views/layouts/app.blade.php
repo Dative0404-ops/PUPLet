@@ -18,7 +18,8 @@
             <aside class="app-sidebar">
                 <div class="sidebar-header">
                     <a class="brand" href="{{ route('dashboard') }}" style="color: var(--maroon);">
-                        <div class="brand-logo" style="background: var(--maroon); color: #fff;">★</div>
+                        {{-- PUP seal; the image URL lives in the --pup-logo CSS variable. --}}
+                        <div class="brand-logo" role="img" aria-label="PUP logo" style="background-color: var(--maroon);"></div>
                         <div style="font-size: 1rem; line-height: 1.1;">
                             PUP LET Review
                             <small style="display: block; font-size: 0.65rem; color: var(--muted);">Learn &middot; Practice &middot; Pass</small>
@@ -96,7 +97,7 @@
         <header class="site-header">
             <div class="container">
                 <a class="brand" href="{{ route('home') }}">
-                    <div class="brand-logo">★</div>
+                    <div class="brand-logo" role="img" aria-label="PUP logo"></div>
                     <div>
                         PUP LET Review
                         <small style="display: block; font-size: 0.65rem; opacity: 0.8;">Learn &middot; Practice &middot; Pass</small>
