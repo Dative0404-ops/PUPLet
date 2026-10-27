@@ -60,7 +60,7 @@ class ReviewerQuizTest extends TestCase
             ->assertSee('General Education')
             ->assertSee('Professional Education')
             ->assertSee('Specialization')
-            ->assertSee('Information and Communications Technology')
+            ->assertSee('Understanding the Self')
             ->assertSee('Secondary (BSED) - English')
             // Another major's subject must be hidden by the track gate.
             ->assertDontSee('Values Education');
@@ -92,15 +92,14 @@ class ReviewerQuizTest extends TestCase
         // A Secondary - English student.
         $student = $this->student();
 
-        // Finds the General Education -> English subject.
-        $subject = Subject::where('area', 'gen_ed')->where('name', 'English')->firstOrFail();
+        // Finds the General Education -> Purposive Communication in English subject.
+        $subject = Subject::where('area', 'gen_ed')->where('name', 'Purposive Communication in English')->firstOrFail();
 
         // The subject page lists its topics and shows a "Not started" badge.
         $this->actingAs($student)
             ->get("/review/subjects/{$subject->id}")
             ->assertOk()
-            ->assertSee('Grammar and usage')
-            ->assertSee('Reading comprehension')
+            ->assertSee('Purposive Communication in English')
             ->assertSee('Not started');
     }
 
@@ -130,13 +129,13 @@ class ReviewerQuizTest extends TestCase
 
         // The student and the topic to open.
         $student = $this->student();
-        $topic = $this->topic('gen_ed', 'English', 'Grammar and usage');
+        $topic = $this->topic('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English');
 
         // The hub names the topic and links its material, quiz and the mock exam.
         $this->actingAs($student)
             ->get("/review/topics/{$topic->id}")
             ->assertOk()
-            ->assertSee('Grammar and usage')
+            ->assertSee('Purposive Communication in English')
             ->assertSee('Reviewer material')
             ->assertSee('Practice quiz')
             // An empty question bank is flagged on the hub.
@@ -152,7 +151,7 @@ class ReviewerQuizTest extends TestCase
 
         // The student and the lesson to open.
         $student = $this->student();
-        $lesson = $this->lesson('gen_ed', 'English', 'Grammar and usage');
+        $lesson = $this->lesson('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English');
 
         // Fills the lesson with one of each structured content block.
         $lesson->update([
@@ -190,7 +189,7 @@ class ReviewerQuizTest extends TestCase
 
         // The student and the lesson to complete.
         $student = $this->student();
-        $lesson = $this->lesson('gen_ed', 'English', 'Grammar and usage');
+        $lesson = $this->lesson('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English');
 
         // Posts the "mark as reviewed" action, which redirects back to the lesson.
         $this->actingAs($student)
@@ -219,7 +218,7 @@ class ReviewerQuizTest extends TestCase
 
         // The student and the quiz to inspect.
         $student = $this->student();
-        $quiz = $this->quiz('gen_ed', 'English', 'Grammar and usage');
+        $quiz = $this->quiz('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English');
 
         // The quiz page flags that there are no questions yet.
         $this->actingAs($student)
@@ -245,7 +244,7 @@ class ReviewerQuizTest extends TestCase
 
         // The student and the topic to practise.
         $student = $this->student();
-        $topic = $this->topic('gen_ed', 'English', 'Grammar and usage');
+        $topic = $this->topic('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English');
 
         // Adds three questions, each with its own explanation.
         $this->question($topic, 'Question one?', 'Explanation one.');
@@ -306,7 +305,7 @@ class ReviewerQuizTest extends TestCase
 
         // The student and the topic to practise.
         $student = $this->student();
-        $topic = $this->topic('gen_ed', 'English', 'Grammar and usage');
+        $topic = $this->topic('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English');
 
         // Three questions: one to answer correctly, two to miss.
         $this->question($topic, 'Correct item?', 'Explanation one.');
@@ -361,7 +360,7 @@ class ReviewerQuizTest extends TestCase
 
         // The student, the topic and the question to bookmark.
         $student = $this->student();
-        $topic = $this->topic('gen_ed', 'English', 'Grammar and usage');
+        $topic = $this->topic('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English');
         $question = $this->question($topic, 'A tricky item?', 'Because it is tricky.');
 
         // Bookmarking from the bookmarks page redirects back to it.
@@ -404,7 +403,7 @@ class ReviewerQuizTest extends TestCase
 
         // The student, topic and single question.
         $student = $this->student();
-        $topic = $this->topic('gen_ed', 'English', 'Grammar and usage');
+        $topic = $this->topic('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English');
         $this->question($topic, 'Timed item?', 'Explanation.');
 
         // Gives the quiz one item and a 25-minute limit.
@@ -435,7 +434,7 @@ class ReviewerQuizTest extends TestCase
 
         // The student, topic and the single question.
         $student = $this->student();
-        $topic = $this->topic('gen_ed', 'English', 'Grammar and usage');
+        $topic = $this->topic('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English');
         $question = $this->question($topic, 'Late item?', 'Explanation.');
 
         // Gives the quiz one item and a 5-minute limit.
@@ -483,7 +482,7 @@ class ReviewerQuizTest extends TestCase
         $other = $this->student(['email' => 'other@example.test']);
 
         // The topic and its single question.
-        $topic = $this->topic('gen_ed', 'English', 'Grammar and usage');
+        $topic = $this->topic('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English');
         $this->question($topic, 'Private item?', 'Explanation.');
 
         // Narrows the topic's quiz to one item.
@@ -541,8 +540,8 @@ class ReviewerQuizTest extends TestCase
         $student = $this->student();
 
         // Fills each area's bank to the exact count the blueprint needs.
-        $this->fillBank('gen_ed', 'English', 'Grammar and usage', 20);
-        $this->fillBank('prof_ed', 'The Teaching Profession', 'Philosophical foundations of education', 40);
+        $this->fillBank('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English', 20);
+        $this->fillBank('prof_ed', 'The Professional Teacher', 'The Professional Teacher', 40);
         $this->fillBank('specialization', 'English', 'English literature', 40);
 
         // The page now reports the mock is ready and drops the warning.

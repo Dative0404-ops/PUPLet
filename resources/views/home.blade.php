@@ -57,12 +57,12 @@
                 <div class="card">
                     <div class="subject-icon">📝</div>
                     <h3>General Education</h3>
-                    <p class="muted">English, Mathematics, Science, Social Science, and Filipino.</p>
+                    <p class="muted">Purposive Communication, Malayuning Komunikasyon, Mathematics, Science and Technology, and more.</p>
                 </div>
                 <div class="card">
                     <div class="subject-icon">🎓</div>
                     <h3>Professional Education</h3>
-                    <p class="muted">Teaching Profession, Social Dimensions, Child & Adolescent Development.</p>
+                    <p class="muted">The Professional Teacher, Curriculum, Teaching Methods, Assessment, and more.</p>
                 </div>
                 <div class="card">
                     <div class="subject-icon">⭐</div>

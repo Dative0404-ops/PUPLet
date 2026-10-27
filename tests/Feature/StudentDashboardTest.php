@@ -65,8 +65,8 @@ class StudentDashboardTest extends TestCase
         $student = $this->student();
 
         // Two attempts: 14/20 GenEd and 10/20 ProfEd, 24 of 40 correct overall.
-        $this->attempt($student, $this->quiz('gen_ed', 'English', 'Grammar and usage'), 20, 14);
-        $this->attempt($student, $this->quiz('prof_ed', 'Assessment in Learning', 'Item analysis and grading'), 20, 10);
+        $this->attempt($student, $this->quiz('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English'), 20, 14);
+        $this->attempt($student, $this->quiz('prof_ed', 'The Professional Teacher', 'The Professional Teacher'), 20, 10);
 
         // The dashboard shows the rounded 60% and a completed-quizzes figure.
         $this->actingAs($student)
@@ -86,7 +86,7 @@ class StudentDashboardTest extends TestCase
         $student = $this->student();
 
         // One GenEd attempt and one Specialization (English) attempt.
-        $this->attempt($student, $this->quiz('gen_ed', 'English', 'Grammar and usage'), 20, 18);
+        $this->attempt($student, $this->quiz('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English'), 20, 18);
         $this->attempt($student, $this->quiz('specialization', 'English', 'English literature'), 20, 11);
 
         // The dashboard names each area and the drilled specialization topic.
@@ -111,7 +111,7 @@ class StudentDashboardTest extends TestCase
         // Creates an open attempt (no completed_at) partway through.
         QuizAttempt::create([
             'user_id' => $student->id,
-            'quiz_id' => $this->quiz('prof_ed', 'Assessment in Learning', 'Item analysis and grading')->id,
+            'quiz_id' => $this->quiz('prof_ed', 'The Professional Teacher', 'The Professional Teacher')->id,
             'total_items' => 20,
             'answered_items' => 8,
             'score' => 6,
@@ -123,7 +123,7 @@ class StudentDashboardTest extends TestCase
             ->get('/dashboard')
             ->assertOk()
             ->assertSee('Unfinished test')
-            ->assertSee('Practice set: Item analysis and grading')
+            ->assertSee('Practice set: The Professional Teacher')
             ->assertSee('8 of 20 items answered');
     }
 
@@ -136,15 +136,15 @@ class StudentDashboardTest extends TestCase
         // The student whose dashboard we are checking.
         $student = $this->student();
 
-        // A weak Statistics attempt (9/20) and a strong Reading attempt (18/20).
-        $this->attempt($student, $this->quiz('gen_ed', 'Mathematics', 'Statistics and probability'), 20, 9);
-        $this->attempt($student, $this->quiz('gen_ed', 'English', 'Reading comprehension'), 20, 18);
+        // A weak Purposive Communication attempt (9/20) and a strong Maths attempt (18/20).
+        $this->attempt($student, $this->quiz('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English'), 20, 9);
+        $this->attempt($student, $this->quiz('gen_ed', 'Mathematics in the Modern World', 'Mathematics in the Modern World'), 20, 18);
 
         // assertSeeInOrder checks the weak topic appears before the strong one.
         $this->actingAs($student)
             ->get('/dashboard')
             ->assertOk()
-            ->assertSeeInOrder(['Statistics and probability', 'Reading comprehension'])
+            ->assertSeeInOrder(['Purposive Communication in English', 'Mathematics in the Modern World'])
             // 9 of 20 correct is shown as 45%.
             ->assertSee('45%');
     }
@@ -159,7 +159,7 @@ class StudentDashboardTest extends TestCase
         $student = $this->student();
 
         // One completed 20-item attempt today.
-        $this->attempt($student, $this->quiz('gen_ed', 'English', 'Grammar and usage'), 20, 15);
+        $this->attempt($student, $this->quiz('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English'), 20, 15);
 
         // A daily target of 50 items dated today.
         StudyGoal::create([

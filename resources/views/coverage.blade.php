@@ -87,28 +87,44 @@
 
             <div class="grid grid-3">
                 <div class="card">
-                    <h3>English</h3>
-                    <p class="muted">Grammar and usage, reading comprehension, study and thinking skills, speech and oral communication, and Philippine and world literature.</p>
+                    <h3>Purposive Communication in English</h3>
+                    <p class="muted">Communication for academic and professional purposes: reading, writing, speaking, and listening in English across disciplines.</p>
                 </div>
                 <div class="card">
-                    <h3>Filipino</h3>
-                    <p class="muted">Komunikasyon sa akademikong Filipino, masining na pagpapahayag, pagbasa at pagsulat, at panitikang Filipino.</p>
+                    <h3>Malayuning Komunikasyon</h3>
+                    <p class="muted">Komunikasyon sa wikang Filipino para sa akademiko at propesyonal na gamit, kabilang ang pagbasa at pagsulat.</p>
                 </div>
                 <div class="card">
-                    <h3>Mathematics</h3>
-                    <p class="muted">Fundamentals of mathematics, number theory, plane geometry, and basic statistics and probability.</p>
+                    <h3>Science and Technology</h3>
+                    <p class="muted">Core science and technology concepts and their applications to everyday life and society.</p>
                 </div>
                 <div class="card">
-                    <h3>Science</h3>
-                    <p class="muted">General science, biological science, physical science, and earth science with emphasis on everyday applications.</p>
+                    <h3>Mathematics in the Modern World</h3>
+                    <p class="muted">Mathematics as a way of thinking: patterns, logic, data, and quantitative reasoning in real-world contexts.</p>
                 </div>
                 <div class="card">
-                    <h3>Social Studies</h3>
-                    <p class="muted">Philippine history, government and the Constitution, economics, society and culture, and basic geography.</p>
+                    <h3>Readings in Philippine History and Society</h3>
+                    <p class="muted">Philippine history and society through primary sources, with emphasis on analysis and interpretation.</p>
                 </div>
                 <div class="card">
-                    <h3>Information and Communications Technology</h3>
-                    <p class="muted">Basic computer concepts, productivity tools, internet literacy, and the responsible use of technology.</p>
+                    <h3>The Life and Works of Rizal</h3>
+                    <p class="muted">The life, writings, and legacy of Jose Rizal and their role in Philippine nationhood.</p>
+                </div>
+                <div class="card">
+                    <h3>Arts Appreciation</h3>
+                    <p class="muted">Appreciation of the visual, performing, and literary arts and their cultural and aesthetic value.</p>
+                </div>
+                <div class="card">
+                    <h3>Ethics</h3>
+                    <p class="muted">Moral theories and their application to personal, professional, and societal decisions.</p>
+                </div>
+                <div class="card">
+                    <h3>The Contemporary World</h3>
+                    <p class="muted">Globalization, cultures, and the interconnected issues shaping today's world.</p>
+                </div>
+                <div class="card">
+                    <h3>Understanding the Self</h3>
+                    <p class="muted">The self from philosophical, psychological, and sociological perspectives.</p>
                 </div>
             </div>
         </div>
@@ -125,36 +141,36 @@
 
             <div class="grid grid-2">
                 <div class="card">
-                    <h3>The Teaching Profession</h3>
-                    <p class="muted">Philosophical, historical, legal, and sociological foundations of education, the Code of Ethics for Professional Teachers, and the professional standards for teachers.</p>
-                </div>
-                <div class="card">
-                    <h3>Child and Adolescent Learners and Learning Principles</h3>
-                    <p class="muted">Growth and development across the life span, learner differences, and the theories of development that shape classroom decisions.</p>
-                </div>
-                <div class="card">
-                    <h3>Facilitating Learner-Centered Teaching</h3>
-                    <p class="muted">Learning theories and their classroom applications, motivation, learner-centered strategies, and the management of learning environments.</p>
+                    <h3>The Professional Teacher</h3>
+                    <p class="muted">The teacher's roles and professional standards, the Code of Ethics for Professional Teachers, and the legal foundations of the profession.</p>
                 </div>
                 <div class="card">
                     <h3>The Teacher and the School Curriculum</h3>
                     <p class="muted">Curriculum planning, design, implementation, and evaluation, including the Philippine basic education curriculum.</p>
                 </div>
                 <div class="card">
-                    <h3>Assessment in Learning</h3>
-                    <p class="muted">Construction of assessment tools, item analysis, grading, feedback, and the use of assessment results to improve instruction.</p>
+                    <h3>Foundations of Teaching-Learning Process</h3>
+                    <p class="muted">The philosophical, psychological, and sociological foundations that shape how learners learn and how teaching is organized.</p>
                 </div>
                 <div class="card">
-                    <h3>Technology for Teaching and Learning</h3>
+                    <h3>Methods and Strategies of Teaching</h3>
+                    <p class="muted">Instructional methods, learner-centered strategies, motivation, and classroom management for effective teaching.</p>
+                </div>
+                <div class="card">
+                    <h3>Educational Technology</h3>
                     <p class="muted">Selection and integration of digital tools and instructional media, ICT-supported lesson design, and digital citizenship.</p>
                 </div>
                 <div class="card">
-                    <h3>The Teacher and the Community</h3>
-                    <p class="muted">School culture, organizational leadership, community partnerships, and the social dimensions of education.</p>
+                    <h3>Headstart for Toddlers, Child, and Adolescent</h3>
+                    <p class="muted">Growth and development from early childhood through adolescence, and the learner differences that shape classroom decisions.</p>
                 </div>
                 <div class="card">
-                    <h3>Research and Reflective Practice</h3>
-                    <p class="muted">Action research, reflective teaching, and the use of evidence to refine classroom practice.</p>
+                    <h3>Validating Theoretical Knowledge in the Actual Assessment of Learning</h3>
+                    <p class="muted">Construction of assessment tools, item analysis, grading, feedback, and the use of assessment results to improve instruction.</p>
+                </div>
+                <div class="card">
+                    <h3>Field Study and Teaching Internship</h3>
+                    <p class="muted">Field study and practicum experiences that connect educational theory to real classroom practice.</p>
                 </div>
             </div>
         </div>

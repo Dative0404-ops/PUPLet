@@ -19,7 +19,7 @@ class DemoAdminSeeder extends Seeder
     private const QUESTIONS = [
         [
             'punctuation',
-            'gen_ed', 'English', 'Grammar and usage',
+            'gen_ed', 'Purposive Communication in English', 'Purposive Communication in English',
             'Choose the sentence that is punctuated correctly.',
             [
                 'The teacher asked, "Have you finished your project?"',
@@ -35,7 +35,7 @@ class DemoAdminSeeder extends Seeder
         ],
         [
             'adverb',
-            'gen_ed', 'English', 'Grammar and usage',
+            'gen_ed', 'Purposive Communication in English', 'Purposive Communication in English',
             'In the sentence "The children played happily in the garden," what part of speech is the word "happily"?',
             ['Adjective', 'Adverb', 'Noun', 'Verb'],
             1,
@@ -46,7 +46,7 @@ class DemoAdminSeeder extends Seeder
         ],
         [
             'median',
-            'gen_ed', 'Mathematics', 'Statistics and probability',
+            'gen_ed', 'Mathematics in the Modern World', 'Mathematics in the Modern World',
             'What is the median of the scores 7, 4, 9, 4, 12, 15, 4?',
             ['4', '7', '9', '12'],
             1,
@@ -57,7 +57,7 @@ class DemoAdminSeeder extends Seeder
         ],
         [
             'die',
-            'gen_ed', 'Mathematics', 'Statistics and probability',
+            'gen_ed', 'Mathematics in the Modern World', 'Mathematics in the Modern World',
             'A fair die is rolled once. What is the probability of getting an even number?',
             ['1/6', '1/3', '1/2', '2/3'],
             2,
@@ -68,7 +68,7 @@ class DemoAdminSeeder extends Seeder
         ],
         [
             'outlier',
-            'prof_ed', 'Assessment in Learning', 'Item analysis and grading',
+            'prof_ed', 'Validating Theoretical Knowledge in the Actual Assessment of Learning', 'Validating Theoretical Knowledge in the Actual Assessment of Learning',
             'Which measure of central tendency is most affected by an extremely high score?',
             ['Mean', 'Median', 'Mode', 'Range'],
             0,
@@ -79,7 +79,7 @@ class DemoAdminSeeder extends Seeder
         ],
         [
             'ethics',
-            'prof_ed', 'The Teaching Profession', 'The Code of Ethics for Professional Teachers',
+            'prof_ed', 'The Professional Teacher', 'The Professional Teacher',
             'Under the Code of Ethics for Professional Teachers, how should a teacher deal with learners?',
             [
                 'Treat every learner impartially and keep a professional relationship',
@@ -106,7 +106,7 @@ class DemoAdminSeeder extends Seeder
         ],
         [
             'mars',
-            'gen_ed', 'Science', 'General science',
+            'gen_ed', 'Science and Technology', 'Science and Technology',
             'Which planet in the solar system is known as the Red Planet?',
             ['Mercury', 'Venus', 'Mars', 'Jupiter'],
             2,
@@ -117,7 +117,7 @@ class DemoAdminSeeder extends Seeder
         ],
         [
             'independence',
-            'gen_ed', 'Social Studies', 'Philippine history',
+            'gen_ed', 'Readings in Philippine History and Society', 'Readings in Philippine History and Society',
             'In what year was Philippine independence proclaimed in Kawit, Cavite?',
             ['1896', '1898', '1901', '1935'],
             1,

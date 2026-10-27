@@ -155,7 +155,7 @@ class StudentAccountTest extends TestCase
         // The student whose history we are checking.
         $student = $this->student();
         // Finds the Grammar practice quiz and gives it a readable title.
-        $practice = $this->quiz('gen_ed', 'English', 'Grammar and usage');
+        $practice = $this->quiz('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English');
         $practice->update(['title' => 'Grammar drill']);
 
         // Creates a mock-exam quiz for the second attempt type.
@@ -200,7 +200,7 @@ class StudentAccountTest extends TestCase
         // The student whose history we are checking.
         $student = $this->student();
         // Finds the practice quiz to record attempts against.
-        $quiz = $this->quiz('gen_ed', 'English', 'Grammar and usage');
+        $quiz = $this->quiz('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English');
 
         // Records 16 attempts; the extra one forces a second page.
         for ($index = 1; $index <= 16; $index++) {
@@ -230,7 +230,7 @@ class StudentAccountTest extends TestCase
         // The student whose history we are checking.
         $student = $this->student();
         // Finds the practice quiz to attach the open attempt to.
-        $quiz = $this->quiz('gen_ed', 'English', 'Grammar and usage');
+        $quiz = $this->quiz('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English');
 
         // Creates an attempt with no completed_at, so it counts as open.
         QuizAttempt::create([
@@ -259,8 +259,8 @@ class StudentAccountTest extends TestCase
         $student = $this->student();
 
         // One strong GenEd attempt (16/20) and one weak ProfEd attempt (8/20).
-        $this->attempt($student, $this->quiz('gen_ed', 'English', 'Grammar and usage'), 20, 16);
-        $this->attempt($student, $this->quiz('prof_ed', 'Assessment in Learning', 'Item analysis and grading'), 20, 8);
+        $this->attempt($student, $this->quiz('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English'), 20, 16);
+        $this->attempt($student, $this->quiz('prof_ed', 'The Professional Teacher', 'The Professional Teacher'), 20, 8);
 
         // The analytics page names each chart and the drilled subject/topic.
         $this->actingAs($student)
@@ -269,10 +269,10 @@ class StudentAccountTest extends TestCase
             ->assertSee('Performance by LET area')
             ->assertSee('Performance by subject')
             ->assertSee('Performance by topic')
-            ->assertSee('English')
-            ->assertSee('Assessment in Learning')
-            ->assertSee('Grammar and usage')
-            ->assertSee('Item analysis and grading')
+            ->assertSee('Purposive Communication in English')
+            ->assertSee('The Professional Teacher')
+            ->assertSee('Purposive Communication in English')
+            ->assertSee('The Professional Teacher')
             // 16 of 20 correct is shown as 60% overall.
             ->assertSee('60%');
     }
@@ -538,7 +538,7 @@ class StudentAccountTest extends TestCase
         // A student whose preference is 0 minutes, meaning untimed practice.
         $student = $this->student(['practice_time_limit_minutes' => 0]);
         // The topic to practise.
-        $topic = $this->topic('gen_ed', 'English', 'Grammar and usage');
+        $topic = $this->topic('gen_ed', 'Purposive Communication in English', 'Purposive Communication in English');
 
         // Adds a single question so the quiz has something to serve.
         $this->question($topic, 'Untimed item?');

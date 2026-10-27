@@ -17,77 +17,61 @@ class LetCatalogSeeder extends Seeder
      */
     private const CATALOG = [
         'gen_ed' => [
-            'English' => [
-                'Grammar and usage',
-                'Reading comprehension',
-                'Speech and oral communication',
-                'Philippine and world literature',
+            'Purposive Communication in English' => [
+                'Purposive Communication in English',
             ],
-            'Filipino' => [
-                'Komunikasyon sa akademikong Filipino',
-                'Masining na pagpapahayag',
-                'Panitikang Filipino',
+            'Malayuning Komunikasyon' => [
+                'Malayuning Komunikasyon',
             ],
-            'Mathematics' => [
-                'Fundamentals of mathematics',
-                'Plane geometry',
-                'Statistics and probability',
+            'Science and Technology' => [
+                'Science and Technology',
             ],
-            'Science' => [
-                'General science',
-                'Biological science',
-                'Physical science',
-                'Earth science',
+            'Mathematics in the Modern World' => [
+                'Mathematics in the Modern World',
             ],
-            'Social Studies' => [
-                'Philippine history',
-                'Government and the Constitution',
-                'Economics',
-                'Society and culture',
+            'Readings in Philippine History and Society' => [
+                'Readings in Philippine History and Society',
             ],
-            'Information and Communications Technology' => [
-                'Computer concepts and productivity tools',
-                'Internet literacy and digital citizenship',
+            'The Life and Works of Rizal' => [
+                'The Life and Works of Rizal',
+            ],
+            'Arts Appreciation' => [
+                'Arts Appreciation',
+            ],
+            'Ethics' => [
+                'Ethics',
+            ],
+            'The Contemporary World' => [
+                'The Contemporary World',
+            ],
+            'Understanding the Self' => [
+                'Understanding the Self',
             ],
         ],
         'prof_ed' => [
-            'The Teaching Profession' => [
-                'Philosophical foundations of education',
-                'The Code of Ethics for Professional Teachers',
-                'Legal foundations of education',
-            ],
-            'Child and Adolescent Learners and Learning Principles' => [
-                'Theories of development',
-                'Learner differences',
-                'Growth and development across the life span',
-            ],
-            'Facilitating Learner-Centered Teaching' => [
-                'Learning theories',
-                'Motivation and classroom management',
-                'Learner-centered strategies',
+            'The Professional Teacher' => [
+                'The Professional Teacher',
             ],
             'The Teacher and the School Curriculum' => [
-                'Curriculum design',
-                'Curriculum implementation and evaluation',
-                'The Philippine basic education curriculum',
+                'The Teacher and the School Curriculum',
             ],
-            'Assessment in Learning' => [
-                'Constructing assessment tools',
-                'Item analysis and grading',
-                'Assessment for learning',
+            'Foundations of Teaching-Learning Process' => [
+                'Foundations of Teaching-Learning Process',
             ],
-            'Technology for Teaching and Learning' => [
-                'Digital tools for instruction',
-                'Instructional media design',
-                'Digital citizenship',
+            'Methods and Strategies of Teaching' => [
+                'Methods and Strategies of Teaching',
             ],
-            'The Teacher and the Community' => [
-                'School culture and leadership',
-                'Community partnerships',
+            'Educational Technology' => [
+                'Educational Technology',
             ],
-            'Research and Reflective Practice' => [
-                'Action research',
-                'Reflective teaching',
+            'Headstart for Toddlers, Child, and Adolescent' => [
+                'Headstart for Toddlers, Child, and Adolescent',
+            ],
+            'Validating Theoretical Knowledge in the Actual Assessment of Learning' => [
+                'Validating Theoretical Knowledge in the Actual Assessment of Learning',
+            ],
+            'Field Study and Teaching Internship' => [
+                'Field Study and Teaching Internship',
             ],
         ],
         'specialization' => [

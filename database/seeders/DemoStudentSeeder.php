@@ -20,19 +20,19 @@ class DemoStudentSeeder extends Seeder
      * @var list<array{0: string, 1: string, 2: string, 3: int, 4: int, 5: int, 6: int}>
      */
     private const ATTEMPTS = [
-        ['gen_ed', 'English', 'Grammar and usage', 20, 15, 0, 9],
+        ['gen_ed', 'Purposive Communication in English', 'Purposive Communication in English', 20, 15, 0, 9],
         ['specialization', 'English', 'English literature', 20, 17, 1, 20],
-        ['gen_ed', 'Mathematics', 'Statistics and probability', 40, 18, 2, 19],
-        ['prof_ed', 'Assessment in Learning', 'Item analysis and grading', 20, 11, 3, 18],
-        ['prof_ed', 'Facilitating Learner-Centered Teaching', 'Learning theories', 20, 12, 4, 20],
-        ['gen_ed', 'Mathematics', 'Fundamentals of mathematics', 20, 13, 5, 19],
-        ['gen_ed', 'English', 'Reading comprehension', 20, 17, 6, 21],
-        ['prof_ed', 'The Teaching Profession', 'The Code of Ethics for Professional Teachers', 20, 18, 7, 20],
-        ['prof_ed', 'Assessment in Learning', 'Constructing assessment tools', 20, 14, 8, 19],
-        ['gen_ed', 'Science', 'Earth science', 20, 12, 9, 17],
+        ['gen_ed', 'Mathematics in the Modern World', 'Mathematics in the Modern World', 40, 18, 2, 19],
+        ['prof_ed', 'The Professional Teacher', 'The Professional Teacher', 20, 11, 3, 18],
+        ['prof_ed', 'Methods and Strategies of Teaching', 'Methods and Strategies of Teaching', 20, 12, 4, 20],
+        ['gen_ed', 'Science and Technology', 'Science and Technology', 20, 13, 5, 19],
+        ['gen_ed', 'Understanding the Self', 'Understanding the Self', 20, 17, 6, 21],
+        ['prof_ed', 'Foundations of Teaching-Learning Process', 'Foundations of Teaching-Learning Process', 20, 18, 7, 20],
+        ['prof_ed', 'Validating Theoretical Knowledge in the Actual Assessment of Learning', 'Validating Theoretical Knowledge in the Actual Assessment of Learning', 20, 14, 8, 19],
+        ['gen_ed', 'The Contemporary World', 'The Contemporary World', 20, 12, 9, 17],
         ['specialization', 'English', 'Language and linguistics', 20, 14, 10, 20],
-        ['gen_ed', 'Filipino', 'Panitikang Filipino', 20, 16, 11, 18],
-        ['prof_ed', 'Child and Adolescent Learners and Learning Principles', 'Theories of development', 20, 15, 12, 19],
+        ['gen_ed', 'Malayuning Komunikasyon', 'Malayuning Komunikasyon', 20, 16, 11, 18],
+        ['prof_ed', 'Headstart for Toddlers, Child, and Adolescent', 'Headstart for Toddlers, Child, and Adolescent', 20, 15, 12, 19],
     ];
 
     /**
@@ -41,11 +41,11 @@ class DemoStudentSeeder extends Seeder
      * @var list<array{0: string, 1: string, 2: string, 3: int, 4: int, 5: bool}>
      */
     private const LESSONS = [
-        ['prof_ed', 'Assessment in Learning', 'Item analysis and grading', 45, 1, false],
+        ['prof_ed', 'Validating Theoretical Knowledge in the Actual Assessment of Learning', 'Validating Theoretical Knowledge in the Actual Assessment of Learning', 45, 1, false],
         ['specialization', 'English', 'English literature', 100, 1, true],
-        ['prof_ed', 'Facilitating Learner-Centered Teaching', 'Learning theories', 100, 4, true],
-        ['gen_ed', 'Mathematics', 'Statistics and probability', 30, 2, false],
-        ['prof_ed', 'The Teaching Profession', 'The Code of Ethics for Professional Teachers', 100, 7, true],
+        ['prof_ed', 'Methods and Strategies of Teaching', 'Methods and Strategies of Teaching', 100, 4, true],
+        ['gen_ed', 'Mathematics in the Modern World', 'Mathematics in the Modern World', 30, 2, false],
+        ['prof_ed', 'The Professional Teacher', 'The Professional Teacher', 100, 7, true],
     ];
 
     /**
@@ -95,7 +95,7 @@ class DemoStudentSeeder extends Seeder
 
         QuizAttempt::create([
             'user_id' => $student->id,
-            'quiz_id' => $this->quiz('prof_ed', 'The Teacher and the School Curriculum', 'Curriculum design')->id,
+            'quiz_id' => $this->quiz('prof_ed', 'The Teacher and the School Curriculum', 'The Teacher and the School Curriculum')->id,
             'total_items' => 20,
             'answered_items' => 8,
             'score' => 6,
