@@ -1,59 +1,62 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# PUP LET Reviewer
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern, adaptive web-based review system for the Licensure Examination for Teachers (LET), built for PUP students.
 
-## About Laravel
+## 🚀 Quick Start
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1. Prerequisites
+- **PHP 8.2+**
+- **Composer**
+- **SQLite** (for local dev) or **PostgreSQL** (for production)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 2. Installation
+```bash
+# Clone the repository
+git clone <repository-url>
+cd Capstone
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# Install dependencies
+composer install
 
-## Learning Laravel
+# Setup environment
+cp .env.example .env
+php artisan key:generate
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+# Initialize local database (SQLite)
+touch database/database.sqlite
+php artisan migrate:fresh --seed
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 3. Running Locally
+```bash
+php artisan serve
+```
+Visit `http://localhost:8000` to view the application.
 
-## Laravel Sponsors
+## 🛠 Database Configuration
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+The project supports two environments via the `.env` file:
 
-### Premium Partners
+- **Local Development (Default)**: Uses `database/database.sqlite`. It is extremely fast for coding and testing.
+- **Production (Supabase)**: Connects to a live PostgreSQL database. 
+  - To switch, comment out `DB_CONNECTION=sqlite` and uncomment the `pgsql` block in your `.env`.
+  - See [DATABASE_DOCUMENTATION.md](DATABASE_DOCUMENTATION.md) for details on triggers and backups.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 🧪 Testing
+We use PHPUnit for end-to-end feature testing. Tests are isolated and run in-memory, so they won't affect your local or live data.
+```bash
+php artisan test
+```
 
-## Contributing
+## 📖 Documentation
+- **[TECH_DOC.md](TECH_DOC.md)**: Full technical architecture, request flow, and core logic (DSS/Quiz Engine).
+- **[DATABASE_DOCUMENTATION.md](DATABASE_DOCUMENTATION.md)**: Normalization, ER diagrams, triggers, and backup/restore guides.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 👥 Roles
+- **Student**: Register, take quizzes, view analytics, and get personalized recommendations.
+- **Administrator**: Manage the question bank, subjects, users, and system settings.
+  - *Default Admin*: `admin@letreviewer.test` / `password`
+  - *Demo Student*: `demo@letreviewer.test` / `password`
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## ⚖️ License
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
