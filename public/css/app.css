@@ -1,6 +1,7 @@
 /* PUP LET Review — Modern UI Styles */
 
 :root {
+    --gold: #ffde23;
     --dark: #7c7a7a;
     --maroon: #800000;
     --maroon-dark: #600000;
@@ -156,7 +157,7 @@ p { margin: 0 0 1rem; }
     background: var(--maroon-light);
     color: var(--maroon);
     text-decoration: none;
-    border-right: 4px solid var(--maroon);
+    border-right: 4px solid var(--gold);
 }
 
 .sidebar-nav i, .sidebar-nav svg {
