@@ -13,8 +13,8 @@
                     An adaptive review system designed for PUP students, helping you study smarter, practice better, and achieve your dreams.
                 </p>
                 <div class="hero-actions">
-                    <a href="{{ route('register') }}" class="btn btn-primary" style="padding: 14px 32px; border-radius: 8px;">Get Started</a>
-                    <a href="{{ route('about') }}" class="btn btn-outline" style="padding: 14px 32px; border-radius: 8px;">Learn More</a>
+                    <a href="{{ route('register') }}" class="btn btn-primary" style="padding: 14px 32px; border-radius: 100px;">Get Started</a>
+                    <a href="{{ route('about') }}" class="btn btn-outline" style="padding: 14px 32px; border-radius: 100px;">Learn More</a>
                 </div>
             </div>
         </div>
@@ -27,21 +27,21 @@
                 <div style="display: flex; align-items: center; gap: 20px;">
                     <div style="width: 50px; height: 50px; background: var(--maroon-light); color: var(--maroon); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">⚙️</div>
                     <div>
-                        <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px;">Adaptive Learning</div>
+                        <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; color: var(--maroon);">Adaptive Learning</div>
                         <p class="muted mb-0" style="font-size: 0.85rem;">Personalized study plan based on your performance.</p>
                     </div>
                 </div>
                 <div style="display: flex; align-items: center; gap: 20px;">
                     <div style="width: 50px; height: 50px; background: var(--maroon-light); color: var(--maroon); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">📄</div>
                     <div>
-                        <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px;">Practice Tests</div>
+                        <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; color: var(--maroon);">Practice Tests</div>
                         <p class="muted mb-0" style="font-size: 0.85rem;">Simulated LET-style questions with detailed explanations.</p>
                     </div>
                 </div>
                 <div style="display: flex; align-items: center; gap: 20px;">
                     <div style="width: 50px; height: 50px; background: var(--maroon-light); color: var(--maroon); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">📈</div>
                     <div>
-                        <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px;">Track Your Progress</div>
+                        <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; color: var(--maroon);">Track Your Progress</div>
                         <p class="muted mb-0" style="font-size: 0.85rem;">Monitor your scores and improve over time.</p>
                     </div>
                 </div>

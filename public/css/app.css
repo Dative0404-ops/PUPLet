@@ -1,6 +1,7 @@
 /* PUP LET Review — Modern UI Styles */
 
 :root {
+    --dark: #7c7a7a;
     --maroon: #800000;
     --maroon-dark: #600000;
     --maroon-light: #fdf2f2;
@@ -171,7 +172,7 @@ p { margin: 0 0 1rem; }
 /* Header ------------------------------------------------------------------ */
 
 .site-header {
-    background: var(--maroon);
+    background: linear-gradient(135deg, #0f0808 0%, #800 100%);
     color: #fff;
     padding: 16px 0;
 }
@@ -275,7 +276,7 @@ p { margin: 0 0 1rem; }
 
 .auth-sidebar {
     flex: 1;
-    background: var(--maroon);
+    background: linear-gradient(135deg, #0e0d0d 0%, #800 100%);
     color: #fff;
     padding: 60px;
     display: flex;

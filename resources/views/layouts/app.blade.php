@@ -139,7 +139,7 @@
             @yield('content')
         </main>
 
-        <footer class="site-footer" style="background: var(--maroon); color: #fff; padding: 40px 0; border-top: 4px solid var(--red);">
+        <footer class="site-footer" style="background: linear-gradient(135deg, #0f0808 0%, rgb(68, 6, 6) 100%); color: #fff; padding: 30px 0; border-top: 2px solid var(--dark);">
             <div class="container">
                 <div style="text-align: center; opacity: 0.8; font-size: 0.9rem;">
                     PUP LET Review &middot; Learn &middot; Practice &middot; Pass
