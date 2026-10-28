@@ -18,17 +18,12 @@
             {{-- Sidebar (shown to logged-in users) --}}
             <aside class="app-sidebar">
                 <div class="sidebar-header">
-<<<<<<< HEAD
-                    <a class="brand" href="{{ route('dashboard') }}" style="color: var(--maroon);">
-                        {{-- PUP logo; the image comes from the --pup-logo CSS variable. --}}
-=======
                     <a class="brand" href="{{ route('dashboard') }}" style="color: var(--surface);">
                         {{-- PUP seal; the image URL lives in the --pup-logo CSS variable. --}}
->>>>>>> d9312e445af3f1250bd9d19e87e2b6c409aad08b
                         <div class="brand-logo" role="img" aria-label="PUP logo" style="background-color: var(--maroon);"></div>
                         <div style="font-size: 1rem; line-height: 1.1;">
                             PUP LET Review
-                            <small style="display: block; font-size: 0.65rem; color: var(--muted);">Learn &middot; Practice &middot; Pass</small>
+                            <small style="display: block; font-size: 0.65rem; color: rgba(255,255,255,0.7);">Learn &middot; Practice &middot; Pass</small>
                         </div>
                     </a>
                 </div>
