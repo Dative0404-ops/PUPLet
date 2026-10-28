@@ -1,8 +1,10 @@
+{{-- Admin page: settings for the DSS recommendation rules. --}}
 @extends('layouts.app')
 
 @section('title', 'DSS Settings')
 
 @section('content')
+    {{-- Page heading --}}
     <section class="dashboard-hero admin-hero">
         <div class="container">
             <span class="eyebrow">Admin panel</span>
@@ -16,9 +18,11 @@
 
     <section class="section">
         <div class="container">
+            {{-- Tab bar shared by every admin page. --}}
             @include('admin.partials.nav')
 
             <div class="admin-form-layout">
+                {{-- Form holding the recommendation rules --}}
                 <div class="form-card">
                     <form method="POST" action="{{ route('admin.dss-settings.update') }}">
                         @csrf
@@ -89,6 +93,7 @@
                     </form>
                 </div>
 
+                {{-- Sidebar explaining how the rules shape the list --}}
                 <aside class="admin-form-side">
                     <div class="card">
                         <h3>How the list is built</h3>

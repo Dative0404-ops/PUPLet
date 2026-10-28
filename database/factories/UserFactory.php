@@ -1,27 +1,24 @@
 <?php
 
-// Factories live in the Database\Factories namespace so Laravel can autoload them.
+// Factories live in the Database\Factories namespace.
 namespace Database\Factories;
 
-// The User model this factory builds instances of.
 use App\Models\User;
-// The base Factory class provides fake(), state(), and create() behaviour.
 use Illuminate\Database\Eloquent\Factories\Factory;
-// The Hash facade hashes passwords so stored values are never plain text.
+// Hashes passwords so stored values are never plain text.
 use Illuminate\Support\Facades\Hash;
-// Str provides helpers such as random string generation.
 use Illuminate\Support\Str;
 
 /**
  * @extends Factory<User>
  */
-// A factory that creates realistic fake User rows for tests and seed data.
+// Builds fake User rows for tests and seed data.
 class UserFactory extends Factory
 {
     /**
      * The current password being used by the factory.
      */
-    // Static cache so the (expensive) password hash is computed only once per run.
+    // Cache the hash so it is calculated only once per run.
     protected static ?string $password;
 
     /**
@@ -29,20 +26,16 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    // Returns the default set of column values for a new fake user.
     public function definition(): array
     {
-        // Each key is a users-table column; each value is generated fake data.
+        // Each key is a users-table column, filled with fake data.
         return [
-            // A random full name for the user.
             'name' => fake()->name(),
-            // A random email; unique() prevents duplicates across generated rows.
+            // unique() stops duplicate emails across generated rows.
             'email' => fake()->unique()->safeEmail(),
-            // Marks the email as verified now(), so tests skip email confirmation.
+            // Set now(), so tests skip the email-confirmation step.
             'email_verified_at' => now(),
-            // Hash the default password once and reuse it via the null-coalescing assignment.
             'password' => static::$password ??= Hash::make('password'),
-            // A random token backing Laravel's "remember me" cookie.
             'remember_token' => Str::random(10),
         ];
     }
@@ -50,13 +43,12 @@ class UserFactory extends Factory
     /**
      * Indicate that the model's email address should be unverified.
      */
-    // A named "state" that tweaks the defaults; used as User::factory()->unverified().
+    // Used as User::factory()->unverified().
     public function unverified(): static
     {
-        // state() returns a modified copy of this factory with attribute overrides.
-        // The arrow function receives the current attributes and returns the changes.
+        // state() returns a copy of this factory with the given changes.
         return $this->state(fn (array $attributes) => [
-            // Null means the email has not been verified yet.
+            // Null means the email is not verified.
             'email_verified_at' => null,
         ]);
     }

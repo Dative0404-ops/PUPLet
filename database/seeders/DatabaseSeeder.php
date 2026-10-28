@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Run in order: the catalog comes first because the demo accounts link to it.
         $this->call([
             LetCatalogSeeder::class,
             DemoStudentSeeder::class,

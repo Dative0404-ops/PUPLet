@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Study goals set by a student, such as a daily target or a review session.
         Schema::create('study_goals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
@@ -19,6 +20,7 @@ return new class extends Migration
             $table->date('target_date');
             $table->time('target_time')->nullable();
             $table->unsignedSmallInteger('target_items')->nullable();
+            // Null until the goal is done.
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
 

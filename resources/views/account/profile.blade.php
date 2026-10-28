@@ -1,3 +1,4 @@
+{{-- Profile page: edit your details and see a summary of your activity. --}}
 @extends('layouts.app')
 
 @section('title', 'My profile')
@@ -19,6 +20,7 @@
             @include('account.partials.nav')
 
             <div class="grid grid-2">
+                {{-- Form to update your details --}}
                 <div class="card">
                     <h2>Your details</h2>
                     <p class="muted">Change your display name, email address, and LET track.</p>
@@ -64,6 +66,7 @@
                     </form>
                 </div>
 
+                {{-- Snapshot of your reviewer activity --}}
                 <div class="card">
                     <h2>Review at a glance</h2>
                     <p class="muted">A summary of everything you have done in the reviewer so far.</p>

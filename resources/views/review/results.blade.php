@@ -3,6 +3,7 @@
 @section('title', 'Quiz Results')
 
 @section('content')
+    {{-- Page header --}}
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
         <h1 style="margin: 0;">Quiz Results</h1>
         <a href="{{ route('dashboard') }}" class="muted" style="font-size: 0.9rem; font-weight: 600;">← Back to Dashboard</a>
@@ -10,6 +11,7 @@
 
     <div style="display: flex; gap: 24px; margin-bottom: 32px;">
         <div style="flex: 1;">
+            {{-- Score circle with the overall percentage --}}
             <div class="chart-card text-center">
                 <div class="progress-circle-wrap">
                     <div class="progress-circle">
@@ -37,6 +39,7 @@
                 </div>
             </div>
 
+            {{-- Every question you got wrong, with the correct answer --}}
             <div class="chart-card">
                 <h3 style="margin-bottom: 24px;">Mistake Review</h3>
                 @foreach ($attempt->answers()->where('is_correct', false)->with('question')->get() as $answer)
@@ -55,6 +58,7 @@
                 <div style="display: none;">Question three?</div> {{-- For test compliance --}}
             </div>
 
+            {{-- Score per topic, shown as a coloured bar --}}
             <div class="chart-card">
                 <h3 style="margin-bottom: 24px;">Performance by Topic</h3>
                 @foreach ($breakdown as $area)
@@ -71,7 +75,9 @@
             </div>
         </div>
 
+        {{-- Sidebar --}}
         <div style="width: 360px;">
+            {{-- Time taken and the date of the attempt --}}
             <div class="chart-card">
                 <div style="display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px;">
                     <div style="font-size: 24px; color: var(--maroon);">🕒</div>
@@ -89,6 +95,7 @@
                 </div>
             </div>
 
+            {{-- Suggested topics to review next --}}
             <div class="chart-card" style="border-left: 4px solid var(--maroon);">
                 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
                     <span style="font-size: 20px;">💡</span>

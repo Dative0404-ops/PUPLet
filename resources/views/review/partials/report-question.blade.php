@@ -1,9 +1,9 @@
 {{--
-    Lets a student flag a question that looks wrong or is hard to understand.
+    Lets a student flag a question that looks wrong or hard to understand.
 
-    The controls point at the companion form rendered by
-    `review.partials.report-form`, so this block can also sit inside another
-    form (the timed attempt) without nesting form elements.
+    The controls point at the separate form in review.partials.report-form
+    using form="", so this block can sit inside another form (the timed
+    attempt) without nesting forms.
 
     Expects: $question.
 --}}
@@ -14,6 +14,7 @@
     <summary>Report this question</summary>
 
     <div class="report-form">
+        {{-- The reason is required; the extra note is optional --}}
         <div class="field">
             <label for="report-reason-{{ $question->id }}">What is the problem?</label>
             <select id="report-reason-{{ $question->id }}"

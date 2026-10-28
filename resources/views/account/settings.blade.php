@@ -1,3 +1,4 @@
+{{-- Account settings: study preferences, password change, and sign out. --}}
 @extends('layouts.app')
 
 @section('title', 'Account settings')
@@ -15,6 +16,7 @@
         <div class="container">
             @include('account.partials.nav')
 
+            {{-- Two-column layout: preferences on the left, password change on the right --}}
             <div class="grid grid-2">
                 <div class="card">
                     <h2>Study preferences</h2>
@@ -88,6 +90,7 @@
                 </div>
             </div>
 
+            {{-- Sign out card --}}
             <div class="card signout-card">
                 <div>
                     <h2>Sign out</h2>

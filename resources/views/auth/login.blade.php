@@ -1,3 +1,4 @@
+{{-- Login page: sign in with email and password. --}}
 @extends('layouts.app')
 
 @section('title', 'Login')
@@ -5,6 +6,7 @@
 
 @section('content')
     <div class="auth-layout">
+        {{-- Decorative side panel with a quote --}}
         <div class="auth-sidebar">
             <div class="brand" style="position: absolute; top: 60px; left: 60px;">
                 <div class="brand-logo" role="img" aria-label="PUP logo"></div>
@@ -29,7 +31,9 @@
                     <p class="muted">Enter your credentials to access your dashboard.</p>
                 </div>
 
+                {{-- Sign-in form --}}
                 <form method="POST" action="{{ route('login') }}" novalidate>
+                    {{-- @csrf is required on every POST form. --}}
                     @csrf
 
                     <div class="field">
@@ -70,6 +74,7 @@
                     <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 0 16px; color: var(--muted); font-size: 0.85rem;">or continue with</span>
                 </div>
 
+                {{-- Social sign-in buttons --}}
                 <div class="social-login">
                     <button type="button" class="social-btn">
                         <img src="https://www.google.com/favicon.ico" alt="Google" width="16"> Google
@@ -80,6 +85,7 @@
                 </div>
 
                 <div style="text-align: center; margin-top: 40px;">
+                    {{-- Registration link, shown only when registration is enabled --}}
                     @if (\App\Support\SystemSettings::registrationEnabled())
                         <p class="muted">Don't have an account? <a href="{{ route('register') }}" style="color: var(--maroon); font-weight: 700;">Register</a></p>
                     @endif

@@ -1,14 +1,12 @@
-// LET Reviewer — public site scripts
-// This single file powers the interactive parts of the LET Reviewer site. It is
-// loaded on every page, so each setup function first checks for the elements it
-// needs and returns early when the current page does not include them. That is
-// why one shared script can safely serve the marketing pages, the student area
-// and the admin panel without throwing errors on pages that lack those widgets.
+// LET Reviewer — public site scripts.
+// This one file runs on every page, so each setup function below first checks
+// for the elements it needs and stops early when the page has none of them.
+// That is why a single script can serve the public pages, the student area and
+// the admin panel without errors on pages that lack those widgets.
 
-// Run the setup code only after the browser has parsed the full HTML document.
-// Waiting for DOMContentLoaded guarantees the elements we query below exist.
+// Wait until the page has loaded, so the elements we look for below exist.
 document.addEventListener('DOMContentLoaded', function () {
-    // Prepare the small-screen hamburger menu in the site header.
+    // Set up the mobile menu in the site header.
     setupNavToggle();
     // Keep the specialization dropdown filtered by the selected exam type.
     setupTrackSelects();
@@ -18,55 +16,54 @@ document.addEventListener('DOMContentLoaded', function () {
     setupBookmarkButtons();
 });
 
-// Shows/hides the mobile navigation menu (the hamburger button in the header).
+// Opens and closes the mobile menu (the hamburger button in the header).
 function setupNavToggle() {
-    // The hamburger button that opens and closes the menu on small screens.
+    // The hamburger button.
     var toggle = document.querySelector('.nav-toggle');
-    // The navigation list that gets shown or hidden.
+    // The menu that is shown or hidden.
     var nav = document.querySelector('.site-nav');
 
-    // Guard: if this page has no toggle button or no nav, there is nothing to do.
+    // Skip pages that have no menu button or no menu.
     if (!toggle || !nav) {
-        // Stop early so we never call a method on a missing element.
         return;
     }
 
-    // Listen for taps/clicks on the hamburger button.
+    // React to a click on the button.
     toggle.addEventListener('click', function () {
-        // Toggle the "is-open" class; the returned boolean tells us the new state.
+        // Add or remove the "is-open" class; the result is the new state.
         var isOpen = nav.classList.toggle('is-open');
-        // Reflect the open/closed state to assistive technology for accessibility.
+        // Tell screen readers whether the menu is now open.
         toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
 }
 
-// Keeps the specialization options in sync with the selected exam type.
+// Narrows the specialization choices to the selected exam type.
 function setupTrackSelects() {
-    // The "exam type" <select> (e.g. Elementary or Secondary).
+    // The "exam type" <select> (Elementary or Secondary).
     var examType = document.getElementById('exam_type');
-    // The dependent "specialization" <select> whose options we filter.
+    // The "specialization" <select> whose options we filter.
     var specialization = document.getElementById('specialization');
 
-    // Guard: only pages that render both dropdowns need this behaviour.
+    // Only pages with both dropdowns need this.
     if (!examType || !specialization) {
         return;
     }
 
-    // Collect every specialization <option> that declares a data-exam-type.
+    // The <option> elements that carry a data-exam-type.
     var options = Array.prototype.slice.call(specialization.querySelectorAll('option[data-exam-type]'));
-    // Collect every <optgroup> that declares a data-exam-type.
+    // The <optgroup> elements that carry a data-exam-type.
     var groups = Array.prototype.slice.call(specialization.querySelectorAll('optgroup[data-exam-type]'));
 
-    // Reusable function that applies the current exam type to the specialization list.
+    // Applies the current exam type to the specialization list.
     var sync = function () {
-        // The exam type currently chosen by the user.
+        // The exam type chosen right now.
         var selectedExamType = examType.value;
-        // Tracks whether the currently selected specialization is still allowed.
+        // Tracks whether the chosen specialization is still allowed.
         var stillValid = false;
 
-        // Walk over every specialization option and show/hide it.
+        // Show or hide each specialization option.
         options.forEach(function (option) {
-            // An option matches when no exam type is chosen, or its tag agrees.
+            // A match means no exam type is chosen, or the tags agree.
             var matches = !selectedExamType || option.dataset.examType === selectedExamType;
 
             // Hide options that do not belong to the chosen exam type.
@@ -74,13 +71,13 @@ function setupTrackSelects() {
             // Disable hidden options so they cannot be submitted by mistake.
             option.disabled = !matches;
 
-            // If the already-picked option still matches, keep it selected.
+            // If the already-chosen option still matches, keep it selected.
             if (matches && option.selected) {
                 stillValid = true;
             }
         });
 
-        // Apply the same logic at the <optgroup> level for grouped options.
+        // Do the same hiding at the <optgroup> level.
         groups.forEach(function (group) {
             // Hide a group when an exam type is chosen and it does not match.
             group.hidden = Boolean(selectedExamType) && group.dataset.examType !== selectedExamType;
@@ -100,60 +97,59 @@ function setupTrackSelects() {
     sync();
 }
 
-// Counts down a timed attempt and submits it automatically at zero.
+// Counts down a timed attempt and submits it at zero.
 // The server also enforces the deadline, so closing the tab cannot extend it.
 function setupQuizCountdown() {
-    // The wrapper element holding the countdown; absent on most pages.
+    // The countdown wrapper; missing on most pages.
     var countdown = document.getElementById('quiz-countdown');
     // The element that shows the "MM:SS" text.
     var value = document.getElementById('countdown-value');
 
-    // Guard: only run on the quiz attempt page that renders the countdown.
+    // Only the quiz attempt page has this countdown.
     if (!countdown || !value) {
         return;
     }
 
-    // The form that must be submitted automatically when time runs out.
+    // The form that is submitted when time runs out.
     var form = document.getElementById('attempt-form');
     // Seconds left, read from a data attribute the server rendered.
     var remaining = parseInt(countdown.dataset.remainingSeconds, 10);
 
-    // Guard: if the server gave no usable number, do not start a timer.
+    // Do not start a timer if the value is missing.
     if (isNaN(remaining)) {
         return;
     }
 
-    // Repaints the on-screen clock from the current "remaining" value.
+    // Draws the current time left on screen.
     var render = function () {
-        // Never display a negative number once the deadline has passed.
+        // Never show a negative number once the deadline has passed.
         var safe = Math.max(0, remaining);
-        // Whole minutes left (integer division by 60).
+        // Whole minutes left (remainder after dividing by 60).
         var minutes = Math.floor(safe / 60);
         // Leftover seconds after the minutes are taken out.
         var seconds = safe % 60;
 
-        // Build "MM:SS", zero-padding single digits so the width stays stable.
+        // Build "MM:SS", padding single digits so the width stays stable.
         value.textContent = (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-        // Add the "is-low" class (red clock) during the final minute as a warning.
+        // Add the "is-low" class (red clock) in the last minute as a warning.
         countdown.classList.toggle('is-low', safe <= 60);
     };
 
-    // Draw the clock immediately so it is correct before the first tick.
+    // Draw the clock at once so it is correct before the first tick.
     render();
 
     // Tick once per second (1000 ms).
     var timer = window.setInterval(function () {
-        // Decrease the counter by one second.
+        // Take one second off the counter.
         remaining -= 1;
         // Redraw the clock.
         render();
 
         // When time is up, stop ticking and hand in the attempt.
         if (remaining <= 0) {
-            // Stop the interval so it does not keep firing.
             window.clearInterval(timer);
 
-            // Submit the attempt form server-side if it exists on this page.
+            // Submit the attempt form if this page has one.
             if (form) {
                 form.submit();
             }
@@ -163,28 +159,26 @@ function setupQuizCountdown() {
 
 // Saves or removes a bookmark without leaving the quiz.
 function setupBookmarkButtons() {
-    // Every bookmark button that carries its target URL in a data attribute.
+    // Every bookmark button that carries its URL in a data attribute.
     var buttons = Array.prototype.slice.call(document.querySelectorAll('.bookmark-btn[data-bookmark-url]'));
-    // The CSRF token Laravel requires on any state-changing POST request.
+    // The CSRF token Laravel needs on any request that changes data.
     var token = document.querySelector('input[name="_token"]');
 
-    // Guard: skip pages with no bookmark buttons or no CSRF token available.
+    // Skip pages with no bookmark buttons or no token.
     if (!buttons.length || !token) {
         return;
     }
 
-    // Attach the click handler to each bookmark button individually.
     buttons.forEach(function (button) {
-        // Handle a click on this specific button.
         button.addEventListener('click', function () {
-            // Disable the button while the request is in flight to stop double clicks.
+            // Disable the button while the request runs, to stop double clicks.
             button.disabled = true;
 
             // Send the save/unsave request to the URL stored on the button.
             fetch(button.dataset.bookmarkUrl, {
-                // POST because this changes server state.
+                // POST because this changes data on the server.
                 method: 'POST',
-                // Request headers Laravel checks for the AJAX + CSRF flow.
+                // Headers Laravel checks for the AJAX + CSRF flow.
                 headers: {
                     // Prove the request came from our own page (CSRF protection).
                     'X-CSRF-TOKEN': token.value,
@@ -193,7 +187,7 @@ function setupBookmarkButtons() {
                 },
                 // Include the token in the body as well for older middleware.
                 body: new URLSearchParams({ _token: token.value }),
-                // Send the session cookie so the user stays authenticated.
+                // Send the session cookie so the user stays logged in.
                 credentials: 'same-origin'
             }).then(function (response) {
                 // Treat any non-2xx status as a failure.
@@ -202,29 +196,28 @@ function setupBookmarkButtons() {
                     throw new Error('Bookmark request failed');
                 }
 
-                // The new state is the opposite of what the button currently shows.
+                // The new state is the opposite of what the button shows now.
                 var saved = !button.classList.contains('is-saved');
 
                 // Flip the "is-saved" class to restyle the button.
                 button.classList.toggle('is-saved', saved);
                 // Update aria-pressed so screen readers announce the new state.
                 button.setAttribute('aria-pressed', saved ? 'true' : 'false');
-                // Swap the visible label between "Saved" and "Save for later".
+                // Swap the label between "Saved" and "Save for later".
                 button.textContent = saved ? 'Saved' : 'Save for later';
             }).catch(function () {
                 // Fallback: if AJAX failed (offline, blocked), submit a real form.
                 var form = document.createElement('form');
 
-                // Use a standard POST submission.
                 form.method = 'POST';
-                // Post to the same endpoint the button targets.
+                // Post to the same URL the button targets.
                 form.action = button.dataset.bookmarkUrl;
-                // Embed the CSRF token as the hidden field Laravel expects.
+                // Put the CSRF token in the hidden field Laravel expects.
                 form.innerHTML = '<input type="hidden" name="_token" value="' + token.value + '">';
 
                 // Attach the temporary form to the page so it can be submitted.
                 document.body.appendChild(form);
-                // Trigger a normal page navigation that always works.
+                // A normal form submit always works.
                 form.submit();
             }).finally(function () {
                 // Re-enable the button whether the request succeeded or failed.

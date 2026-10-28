@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Record the limit that applied when the attempt started, so later changes
+        // cannot move a deadline that is already running. Null means untimed.
         Schema::table('quiz_attempts', function (Blueprint $table) {
-            // The limit that applied when this attempt started, copied from the
-            // quiz or from the student's preference so later changes cannot move
-            // a deadline that is already running. Null means untimed.
             $table->unsignedSmallInteger('time_limit_minutes')->nullable()->after('score');
         });
     }

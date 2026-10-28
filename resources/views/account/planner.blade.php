@@ -1,8 +1,10 @@
+{{-- Study planner: daily target, add-goal form, and scheduled goals. --}}
 @extends('layouts.app')
 
 @section('title', 'Study planner')
 
 @section('content')
+    {{-- Helper for score colours, plus today's target maths --}}
     @php
         $tone = function (?int $percent) {
             if ($percent === null) {
@@ -98,6 +100,7 @@
                 </div>
             </div>
 
+            {{-- Overdue goals --}}
             @if ($overdue->isNotEmpty())
                 <div class="card goal-card is-overdue">
                     <h2>Overdue</h2>
@@ -108,10 +111,12 @@
                 </div>
             @endif
 
+            {{-- Upcoming goals grouped by day --}}
             <div class="card goal-card">
                 <h2>Upcoming</h2>
                 <p class="muted">Today and everything you have planned ahead.</p>
 
+                {{-- Track the last date so each new day gets its own heading --}}
                 @php $lastDate = null; @endphp
 
                 @forelse ($upcoming as $goal)
@@ -135,6 +140,7 @@
                 @endforelse
             </div>
 
+            {{-- Recently completed goals --}}
             @if ($completed->isNotEmpty())
                 <div class="card goal-card">
                     <h2>Recently completed</h2>

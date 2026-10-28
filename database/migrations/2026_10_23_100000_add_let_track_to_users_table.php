@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Add the exam track chosen by each user to the users table.
         Schema::table('users', function (Blueprint $table) {
+            // Both are nullable, so existing users can leave them empty.
             $table->string('exam_type', 20)->nullable()->after('email');
             $table->string('specialization', 50)->nullable()->after('exam_type');
         });

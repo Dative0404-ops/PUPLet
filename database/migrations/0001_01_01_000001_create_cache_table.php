@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // The application cache, one row per cached key.
         Schema::create('cache', function (Blueprint $table) {
             $table->string('key')->primary();
             $table->mediumText('value');
             $table->integer('expiration')->index();
         });
 
+        // Locks that stop two processes from doing the same cached job at once.
         Schema::create('cache_locks', function (Blueprint $table) {
             $table->string('key')->primary();
             $table->string('owner');

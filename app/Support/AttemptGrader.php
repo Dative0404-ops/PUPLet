@@ -1,17 +1,17 @@
 <?php
 
-// Declares the PHP namespace so Laravel autoloads this class as App\Support\AttemptGrader.
+// Lets Laravel find this class automatically.
 namespace App\Support;
 
-// Imports the QuizAttempt model, the attempt being graded.
+// QuizAttempt: the attempt being graded.
 use App\Models\QuizAttempt;
-// Imports the DB facade so the whole grading step can run in one transaction.
+// DB: runs the whole grading step in one transaction.
 use Illuminate\Support\Facades\DB;
 
 /**
  * Scores a quiz attempt and closes it once it has been submitted or timed out.
  */
-// A static helper class: it holds the grading logic and is never instantiated.
+// Only static methods, so this class is never created; call AttemptGrader::finish().
 class AttemptGrader
 {
     /**
@@ -23,55 +23,52 @@ class AttemptGrader
      *
      * @param  array<int, int|null>|null  $selected
      */
-    // Grades the attempt; $selected is the submitted answers, or null on timeout.
     public static function finish(QuizAttempt $attempt, ?array $selected = null): QuizAttempt
     {
-        // Guard: if the attempt is already finished, do nothing and return it as-is.
+        // Already finished? Leave it alone.
         if (! $attempt->isInProgress()) {
             return $attempt;
         }
 
-        // Run the whole grading inside a database transaction so it is all-or-nothing.
+        // Grade inside a transaction so the whole step passes or fails together.
         return DB::transaction(function () use ($attempt, $selected) {
-            // Running count of questions the student actually answered.
+            // Tally the questions answered and how many were correct.
             $answered = 0;
-            // Running count of correctly answered questions.
             $correct = 0;
 
-            // Loop over the attempt's answer rows, eager-loading each question.
+            // Walk every answer row, pulling its question in the same query.
             foreach ($attempt->answers()->with('question')->get() as $answer) {
-                // Only when the caller passed submitted answers do we overwrite them.
+                // Only overwrite the stored answers when the caller sent some.
                 if ($selected !== null) {
-                    // Look up this question's chosen option in the submitted array.
+                    // Find this question's chosen option in the submitted array.
                     $choice = $selected[$answer->question_id] ?? null;
-                    // Store the choice as an int, or null when nothing/blank was selected.
+                    // Save it as an int, or null for a blank answer.
                     $answer->selected_option = ($choice === null || $choice === '')
                         ? null
                         : (int) $choice;
                 }
 
-                // Mark correctness by comparing the stored option to the question's key.
+                // Compare the stored option to the question's answer key.
                 $answer->is_correct = $answer->question->isCorrect($answer->selected_option);
-                // Persist the updated selection and correctness for this row.
+                // Save the updated row.
                 $answer->save();
 
-                // Add one to the answered tally when the row has a selection.
+                // Tally the answered and correct rows.
                 $answered += $answer->isAnswered() ? 1 : 0;
-                // Add one to the correct tally when this row is correct.
                 $correct += $answer->is_correct ? 1 : 0;
             }
 
-            // Write the summary figures back onto the attempt and close it.
+            // Write the summary onto the attempt and mark it finished.
             $attempt->forceFill([
-                // Total questions the student answered (skipped ones excluded).
+                // Questions the student actually answered (skipped ones excluded).
                 'answered_items' => $answered,
-                // Number of correct answers, i.e. the raw score.
+                // Correct answers, i.e. the raw score.
                 'score' => $correct,
-                // Stamp the finish time so the attempt counts as completed.
+                // Finish time, so the attempt counts as completed.
                 'completed_at' => now(),
             ])->save();
 
-            // Reload the attempt from the database so callers see the saved values.
+            // Read the attempt back so the caller sees the saved values.
             return $attempt->refresh();
         });
     }

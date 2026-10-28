@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Quiz questions, one row per question.
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
+            // Optional topic link: a question disappears when its topic is deleted.
             $table->foreignId('topic_id')->nullable()->constrained()->cascadeOnDelete();
             $table->text('prompt');
+            // The answer choices, stored as a JSON array.
             $table->json('options');
             $table->unsignedTinyInteger('correct_option');
             $table->text('explanation')->nullable();

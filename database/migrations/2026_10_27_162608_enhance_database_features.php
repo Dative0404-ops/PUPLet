@@ -12,26 +12,28 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // 1. Add a useful index for filtering attempt results (correct/incorrect)
+        // Faster lookups when counting correct and incorrect answers in an attempt.
         Schema::table('quiz_attempt_answers', function (Blueprint $table) {
             $table->index(['quiz_attempt_id', 'is_correct'], 'idx_attempt_results');
         });
 
-        // 2. Create an audit table for system-level actions
+        // Audit log of important system actions, one row per logged event.
         Schema::create('audit_logs', function (Blueprint $table) {
             $table->id();
             $table->string('event_type', 50)->index();
             $table->string('table_name', 50);
             $table->unsignedBigInteger('record_id');
             $table->unsignedBigInteger('user_id')->nullable();
+            // Extra event details, stored as JSON.
             $table->jsonb('payload')->nullable();
             $table->timestamp('created_at')->useCurrent();
         });
 
-        // 3. Implement Postgres-specific Function and Trigger
-        // This will fire when a question is verified by an administrator.
+        // Postgres only: a function and trigger that write an audit row when an
+        // administrator verifies a question. The check keeps the migration safe on
+        // other database drivers such as SQLite.
         if (DB::getDriverName() === 'pgsql') {
-            // Function to log verification events
+            // Logs an audit row when a question goes from unverified to verified.
             DB::unprepared("
                 CREATE OR REPLACE FUNCTION log_question_verification()
                 RETURNS TRIGGER AS $$
@@ -51,7 +53,7 @@ return new class extends Migration
                 $$ LANGUAGE plpgsql;
             ");
 
-            // Trigger that calls the function
+            // Runs the function above after each question update.
             DB::unprepared("
                 CREATE TRIGGER trg_question_verified
                 AFTER UPDATE ON questions
@@ -66,6 +68,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // Remove the Postgres trigger and function before dropping their table.
         if (DB::getDriverName() === 'pgsql') {
             DB::unprepared("DROP TRIGGER IF EXISTS trg_question_verified ON questions;");
             DB::unprepared("DROP FUNCTION IF EXISTS log_question_verification();");

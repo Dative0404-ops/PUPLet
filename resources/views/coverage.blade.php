@@ -1,14 +1,11 @@
-{{-- @extends makes this static content page inherit the shared layout (header, footer, styling). --}}
+{{-- Public page: what the LET covers, area by area. --}}
 @extends('layouts.app')
 
-{{-- Sets the browser-tab title for this page via the layout's @yield('title'). --}}
 @section('title', 'LET coverage')
-{{-- Fills the layout's <meta name="description"> slot with this page's summary. --}}
 @section('meta_description', 'What the LET Reviewer covers: General Education, Professional Education, and the specialization areas for elementary and secondary takers.')
 
-{{-- Opens the main content block rendered inside the layout's <main>. --}}
 @section('content')
-    {{-- Page header band with the eyebrow label, heading and introduction. --}}
+    {{-- Page heading --}}
     <section class="page-header">
         <div class="container">
             <span class="eyebrow">Coverage</span>
@@ -21,7 +18,7 @@
         </div>
     </section>
 
-    {{-- Section explaining the exam structure with a weight table. --}}
+    {{-- Exam structure and area weights --}}
     <section class="section">
         <div class="container">
             <h2>Exam structure</h2>
@@ -30,10 +27,9 @@
                 Secondary LET. The specialization area only applies to secondary takers.
             </p>
 
-            {{-- Wrapper that allows the table to scroll horizontally on small screens. --}}
+            {{-- Lets the table scroll sideways on small screens --}}
             <div class="table-wrap">
                 <table>
-                    {{-- Table head row with one column per exam type. --}}
                     <thead>
                         <tr>
                             <th>Area</th>
@@ -42,19 +38,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- Row: General Education weighting differs by track. --}}
                         <tr>
                             <td>General Education</td>
                             <td>40%</td>
                             <td>20%</td>
                         </tr>
-                        {{-- Row: Professional Education weighting. --}}
                         <tr>
                             <td>Professional Education</td>
                             <td>60%</td>
                             <td>40%</td>
                         </tr>
-                        {{-- Row: Specialization applies only to the secondary track. --}}
                         <tr>
                             <td>Specialization</td>
                             <td>Not applicable</td>
@@ -64,7 +57,6 @@
                 </table>
             </div>
 
-            {{-- "notice" box styled as a callout; inline style adds top spacing. --}}
             <div class="notice" style="margin-top: 20px;">
                 <p>
                     Percentage weights follow the PRC Table of Specifications for the LET. The
@@ -75,7 +67,7 @@
         </div>
     </section>
 
-    {{-- General Education subjects in a three-column card grid; section-alt gives a contrasting band. --}}
+    {{-- General Education subjects --}}
     <section class="section section-alt">
         <div class="container">
             <h2>General Education</h2>
@@ -130,7 +122,7 @@
         </div>
     </section>
 
-    {{-- Professional Education subjects in a two-column card grid. --}}
+    {{-- Professional Education subjects --}}
     <section class="section">
         <div class="container">
             <h2>Professional Education</h2>
@@ -176,7 +168,7 @@
         </div>
     </section>
 
-    {{-- Specialization section listing BEED content areas and BSED majors. --}}
+    {{-- Specialization: BEED content areas and BSED majors --}}
     <section class="section section-alt">
         <div class="container">
             <h2>Specialization</h2>
@@ -188,7 +180,6 @@
             <div class="grid grid-2">
                 <div class="card">
                     <h3>Elementary (BEED) content areas</h3>
-                    {{-- tag-list renders each item as a small pill/tag. --}}
                     <ul class="tag-list">
                         <li>English</li>
                         <li>Filipino</li>
@@ -215,7 +206,7 @@
                 </div>
             </div>
 
-            {{-- Plain card explaining how the coverage drives practice-set generation; inline top margin. --}}
+            {{-- How the coverage is used to build practice sets --}}
             <div class="card card-plain" style="margin-top: 20px;">
                 <h3>How the reviewer uses this coverage</h3>
                 <p class="muted">
@@ -224,10 +215,8 @@
                     the matching tags, so a secondary English taker and an elementary generalist get
                     different sets from the same question bank.
                 </p>
-                {{-- Call-to-action button into the registration page. --}}
                 <a href="{{ route('register') }}" class="btn btn-primary">Start reviewing</a>
             </div>
         </div>
     </section>
-{{-- Closes the content section opened near the top of this file. --}}
 @endsection

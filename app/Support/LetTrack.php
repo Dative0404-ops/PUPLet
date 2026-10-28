@@ -1,12 +1,12 @@
 <?php
 
-// Declares the PHP namespace so Laravel autoloads this class as App\Support\LetTrack.
+// Lets Laravel find this class automatically.
 namespace App\Support;
 
 /**
  * The exam types and specialization areas of the Licensure Examination for Teachers.
  */
-// A static helper class holding the fixed LET track vocabulary and lookups.
+// Only static methods, so this class is never created.
 class LetTrack
 {
     /**
@@ -14,7 +14,7 @@ class LetTrack
      *
      * @var array<string, string>
      */
-    // Maps the stored exam-type key to its human-readable label used in the UI.
+    // Maps the stored exam-type key to the label shown in the UI.
     public const EXAM_TYPES = [
         // BEED: the elementary track.
         'elementary' => 'Elementary (BEED)',
@@ -27,11 +27,10 @@ class LetTrack
      *
      * @var array<string, list<string>>
      */
-    // Maps each exam type to the list of specialization majors a student may pick.
+    // Maps each exam type to the majors a student may pick.
     public const SPECIALIZATIONS = [
-        // Majors offered under the elementary (BEED) track.
+        // Majors under the elementary (BEED) track, in school order.
         'elementary' => [
-            // Elementary majors, in school standard order.
             'English',
             'Filipino',
             'Mathematics',
@@ -41,9 +40,8 @@ class LetTrack
             'EPP / TLE',
             'Values Education',
         ],
-        // Majors offered under the secondary (BSED) track.
+        // Majors under the secondary (BSED) track, in school order.
         'secondary' => [
-            // Secondary majors, in school standard order.
             'English',
             'Filipino',
             'Mathematics',
@@ -60,30 +58,27 @@ class LetTrack
      *
      * @return list<string>
      */
-    // Returns the majors for a track, or an empty list when the track is unknown.
     public static function specializations(?string $examType): array
     {
-        // Look up the track's majors, defaulting to an empty array.
+        // An unknown track has no majors.
         return self::SPECIALIZATIONS[$examType] ?? [];
     }
 
     /**
      * The readable label of an exam type.
      */
-    // Returns the friendly name of a track, or a placeholder when none is set.
     public static function examTypeLabel(?string $examType): string
     {
-        // Look up the label, defaulting to a friendly "not selected" message.
+        // Falls back to a friendly "not selected" message.
         return self::EXAM_TYPES[$examType] ?? 'No track selected';
     }
 
     /**
      * A one-line description of a student's track, for example "Secondary (BSED) - English".
      */
-    // Combines track label and major into one description string.
     public static function label(?string $examType, ?string $specialization): string
     {
-        // No exam type at all means the student has not chosen a track.
+        // No exam type means the student has not chosen a track.
         if ($examType === null) {
             return 'No track selected';
         }
@@ -97,10 +92,9 @@ class LetTrack
     /**
      * Whether the given exam type includes a specialization test.
      */
-    // True only for the secondary (BSED) track, which has a specialization area.
     public static function hasSpecializationTest(?string $examType): bool
     {
-        // The exam type includes a specialization test when it is "secondary".
+        // Only the secondary (BSED) track has a specialization area.
         return $examType === 'secondary';
     }
 }

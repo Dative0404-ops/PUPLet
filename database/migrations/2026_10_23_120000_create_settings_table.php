@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Site-wide settings, stored as key and value pairs so an admin can change
+        // them without a new deployment.
         Schema::create('settings', function (Blueprint $table) {
-            // Site-wide settings are kept as simple key and value pairs, so the
-            // administrator can change them without a deployment.
             $table->id();
             $table->string('key', 100)->unique();
             $table->text('value')->nullable();

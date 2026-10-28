@@ -1,13 +1,16 @@
+{{-- Take a quiz attempt: every question on one page, with a timer. --}}
 @extends('layouts.app')
 
 @section('title', $attempt->quiz->title)
 
 @section('content')
+    {{-- Back link and quiz title --}}
     <div style="margin-bottom: 24px;">
         <a href="{{ route('review.index') }}" class="muted" style="font-size: 0.9rem;">← Back to Subject</a>
         <h1 style="font-size: 1.5rem; margin-top: 8px;">{{ $attempt->quiz->title }}</h1>
     </div>
 
+    {{-- Question progress and countdown timer --}}
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
         <div class="muted" style="font-size: 0.9rem;">Question 5 of 20</div>
         @if ($attempt->hasTimeLimit())
@@ -20,7 +23,9 @@
         @endif
     </div>
 
+    {{-- Answer form: one card per question --}}
     <form method="POST" action="{{ route('review.attempt.submit', $attempt) }}" id="attempt-form">
+        {{-- @csrf is required on every POST form. --}}
         @csrf
 
         @foreach ($answers as $answer)
@@ -45,6 +50,7 @@
             </div>
         @endforeach
 
+        {{-- Submit row --}}
         <div style="display: flex; justify-content: space-between; margin-top: 32px;">
             <button type="button" class="btn btn-secondary">← Previous</button>
             <button type="submit" class="btn btn-primary" style="padding-left: 40px; padding-right: 40px;">Submit answers</button>

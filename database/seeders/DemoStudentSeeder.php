@@ -53,6 +53,7 @@ class DemoStudentSeeder extends Seeder
      */
     public function run(): void
     {
+        // Create the demo student account used for the defense.
         $student = User::updateOrCreate(
             ['email' => 'demo@letreviewer.test'],
             [
@@ -63,10 +64,12 @@ class DemoStudentSeeder extends Seeder
             ],
         );
 
+        // Stop if this student already has attempts, so re-seeding does not duplicate them.
         if (QuizAttempt::where('user_id', $student->id)->exists()) {
             return;
         }
 
+        // Fill in the student's activity: attempts, lesson progress and study goals.
         $this->seedAttempts($student);
         $this->seedLessons($student);
         $this->seedGoals($student);
@@ -78,6 +81,7 @@ class DemoStudentSeeder extends Seeder
     private function seedAttempts(User $student): void
     {
         foreach (self::ATTEMPTS as [$area, $subject, $topic, $items, $correct, $daysAgo, $hour]) {
+            // Today's test starts 90 minutes ago; older ones start on their day at $hour.
             $startedAt = $daysAgo === 0
                 ? now()->subMinutes(90)
                 : now()->subDays($daysAgo)->setTime($hour, 0);
@@ -93,6 +97,7 @@ class DemoStudentSeeder extends Seeder
             ]);
         }
 
+        // One unfinished attempt, so the dashboard has something in progress.
         QuizAttempt::create([
             'user_id' => $student->id,
             'quiz_id' => $this->quiz('prof_ed', 'The Teacher and the School Curriculum', 'The Teacher and the School Curriculum')->id,
@@ -128,11 +133,13 @@ class DemoStudentSeeder extends Seeder
      */
     private function seedGoals(User $student): void
     {
+        // The daily target the student is working toward today.
         StudyGoal::updateOrCreate(
             ['user_id' => $student->id, 'type' => StudyGoal::TYPE_DAILY_TARGET, 'target_date' => now()->toDateString()],
             ['title' => 'Answer 50 review items', 'target_items' => 50],
         );
 
+        // A review session tomorrow.
         StudyGoal::updateOrCreate(
             [
                 'user_id' => $student->id,
@@ -142,6 +149,7 @@ class DemoStudentSeeder extends Seeder
             ['title' => 'Timed drill: Assessment in Learning', 'target_time' => '19:00'],
         );
 
+        // A mock exam session in three days.
         StudyGoal::updateOrCreate(
             [
                 'user_id' => $student->id,

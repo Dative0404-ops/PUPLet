@@ -1,11 +1,10 @@
-{{-- Render this view inside the shared layouts/app.blade.php master layout. --}}
+{{-- Admin page: list of all questions in the bank. --}}
 @extends('layouts.app')
 
-{{-- Sets the page/browser title via the layout's @yield('title'). --}}
 @section('title', 'Manage Questions')
 
-{{-- Opens the main content block injected into the layout. --}}
 @section('content')
+    {{-- Page heading and the "Add Question" button --}}
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
         <div>
             <h1 style="margin: 0;">Manage Questions</h1>
@@ -16,6 +15,7 @@
         </a>
     </div>
 
+    {{-- Search and filter bar --}}
     <div class="admin-toolbar">
         <form method="GET" action="{{ route('admin.questions.index') }}" class="admin-filters">
             <div class="field">
@@ -52,6 +52,7 @@
         </form>
     </div>
 
+    {{-- Questions table --}}
     <div class="table-wrap">
         <table>
             <thead>
@@ -78,6 +79,7 @@
                             @endif
                         </td>
                         <td>
+                            {{-- The pill colour maps difficulty: red for hard, amber for medium, green for easy. --}}
                             <span class="pill {{ $question->difficulty === 'hard' ? 'is-poor' : ($question->difficulty === 'medium' ? 'is-warning' : 'is-good') }}">
                                 {{ ucfirst($question->difficulty ?? 'Medium') }}
                             </span>

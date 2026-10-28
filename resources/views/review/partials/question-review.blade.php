@@ -1,9 +1,11 @@
 {{--
-    A read-only question with its answer key and explanation.
+    One question shown in review: the options, the correct answer and the
+    explanation.
 
-    Expects: $question, $answer (nullable QuizAttemptAnswer), $position (nullable int), $bookmarked (array of ids).
+    Expects: $question, $answer (may be null), $position and $bookmarked.
 --}}
 <article class="question-card {{ $answer ? ($answer->isCorrect() ? 'is-correct' : 'is-wrong') : '' }}">
+    {{-- Question number and a result pill --}}
     <header class="question-head">
         <span class="question-number">
             {{ $position ? 'Question '.$position : ($question->topic?->name ?? 'Saved question') }}
@@ -17,6 +19,7 @@
 
     <p class="question-prompt">{{ $question->prompt }}</p>
 
+    {{-- Answer options, marked correct or wrong --}}
     <div class="options">
         @foreach (array_values($question->options ?? []) as $index => $text)
             @php
@@ -37,6 +40,7 @@
         @endforeach
     </div>
 
+    {{-- Feedback: your answer, the correct answer and the explanation --}}
     <div class="answer-feedback">
         @if ($answer)
             <p class="muted">Your answer: <strong>{{ $answer->selectedAnswerText() ?? 'No answer' }}</strong></p>
@@ -58,6 +62,7 @@
             </p>
         @endif
 
+        {{-- Bookmark and report controls --}}
         @include('review.partials.bookmark-button', ['question' => $question, 'bookmarked' => $bookmarked])
     </div>
 

@@ -1,12 +1,12 @@
 <?php
 
-// Declares the PHP namespace so Laravel autoloads this class as App\Support\StudyPreferences.
+// Lets Laravel find this class automatically.
 namespace App\Support;
 
 /**
  * The study preferences a student can set for themselves.
  */
-// A static helper class holding the fixed preference vocabulary and conversions.
+// Only static methods, so this class is never created.
 class StudyPreferences
 {
     /**
@@ -14,13 +14,13 @@ class StudyPreferences
      *
      * @var array<string, array{label: string, route: string}>
      */
-    // Maps a stored landing-page key to its label and the Laravel route name to redirect to.
+    // Maps a stored landing-page key to its label and the route name to redirect to.
     public const LANDING_PAGES = [
-        // Send the student to the student dashboard after signing in.
+        // The student dashboard.
         'dashboard' => ['label' => 'Student dashboard', 'route' => 'dashboard'],
-        // Send the student to the reviewer catalog after signing in.
+        // The reviewer catalog.
         'review' => ['label' => 'Reviewer catalog', 'route' => 'review.index'],
-        // Send the student to the study planner after signing in.
+        // The study planner.
         'planner' => ['label' => 'Study planner', 'route' => 'account.planner'],
     ];
 
@@ -29,11 +29,11 @@ class StudyPreferences
      *
      * @var array<string, string>
      */
-    // Maps a stored/submitted timer key to the text shown on the settings form.
+    // Maps a stored timer key to the text shown on the settings form.
     public const TIME_LIMIT_CHOICES = [
-        // Defer to each quiz's own time limit.
+        // Follow each quiz's own time limit.
         'quiz' => "Follow each quiz's own limit",
-        // Practise without any timer.
+        // Practise with no timer.
         'untimed' => 'No timer',
         // Fixed practice limits in minutes, keyed by their value as text.
         '10' => '10 minutes',
@@ -47,16 +47,15 @@ class StudyPreferences
      * The value stored for a practice timer choice. Null follows the quiz's own
      * limit, and zero means the student always practises untimed.
      */
-    // Converts a submitted timer choice into the integer minutes to store.
     public static function timeLimitValue(string $choice): ?int
     {
-        // match() compares the choice against each arm and returns the first match.
+        // match() returns the value of the first arm that fits.
         return match ($choice) {
             // "untimed" is stored as 0 minutes.
             'untimed' => 0,
             // "quiz" is stored as null, meaning "use the quiz's limit".
             'quiz' => null,
-            // Any other value is a minute count, so cast it to an integer.
+            // Anything else is a minute count.
             default => (int) $choice,
         };
     }
@@ -64,14 +63,13 @@ class StudyPreferences
     /**
      * The choice that represents a stored practice timer value.
      */
-    // Converts stored minutes back into a form choice key.
     public static function timeLimitChoice(?int $stored): string
     {
-        // match(true) runs each arm as a boolean condition and returns the first true one.
+        // match(true) treats each arm as a condition and returns the first true one.
         return match (true) {
-            // Null stored value means the "quiz" choice.
+            // Null means the "quiz" choice.
             $stored === null => 'quiz',
-            // Zero stored value means the "untimed" choice.
+            // Zero means the "untimed" choice.
             $stored === 0 => 'untimed',
             // Any other number becomes its own string key (e.g. 25 => '25').
             default => (string) $stored,
@@ -81,30 +79,27 @@ class StudyPreferences
     /**
      * A readable description of a stored practice timer value.
      */
-    // Returns the display label for a stored timer value.
     public static function timeLimitLabel(?int $stored): string
     {
-        // Convert to a choice key, then look up its readable label text.
+        // Turn the value into a choice key, then look up its label.
         return self::TIME_LIMIT_CHOICES[self::timeLimitChoice($stored)];
     }
 
     /**
      * The route name of a stored landing page, falling back to the dashboard.
      */
-    // Returns the route name for a stored landing page, defaulting to the dashboard.
     public static function landingRoute(?string $page): string
     {
-        // Look up the route for the page key, or fall back to the dashboard route.
+        // An unknown page falls back to the dashboard route.
         return self::LANDING_PAGES[$page]['route'] ?? self::LANDING_PAGES['dashboard']['route'];
     }
 
     /**
      * A readable description of a stored landing page.
      */
-    // Returns the label for a stored landing page, defaulting to the dashboard's.
     public static function landingLabel(?string $page): string
     {
-        // Look up the label for the page key, or fall back to the dashboard label.
+        // An unknown page falls back to the dashboard label.
         return self::LANDING_PAGES[$page]['label'] ?? self::LANDING_PAGES['dashboard']['label'];
     }
 
@@ -113,10 +108,9 @@ class StudyPreferences
      *
      * @return list<string>
      */
-    // Returns the list of valid landing-page keys for form validation.
     public static function landingPages(): array
     {
-        // The array keys of LANDING_PAGES are the valid choices.
+        // The keys of LANDING_PAGES are the valid choices.
         return array_keys(self::LANDING_PAGES);
     }
 
@@ -125,10 +119,9 @@ class StudyPreferences
      *
      * @return list<string>
      */
-    // Returns the list of valid timer-choice keys for form validation.
     public static function timeLimitChoices(): array
     {
-        // The array keys of TIME_LIMIT_CHOICES are the valid choices.
+        // The keys of TIME_LIMIT_CHOICES are the valid choices.
         return array_keys(self::TIME_LIMIT_CHOICES);
     }
 }

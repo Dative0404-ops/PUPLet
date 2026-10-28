@@ -1,3 +1,4 @@
+{{-- Subject catalogue: pick a subject to review. --}}
 @extends('layouts.app')
 
 @section('title', 'Select a Subject')
@@ -9,6 +10,7 @@
         <div style="display: none;">{{ $trackLabel }}</div> {{-- For test compliance --}}
     </div>
 
+    {{-- One card per subject, grouped by LET area --}}
     <div class="subject-grid">
         @foreach ($areas as $area)
             <div style="display: none;">{{ $area['label'] }}</div> {{-- For test compliance --}}
@@ -29,7 +31,7 @@
             @endforeach
         @endforeach
 
-        {{-- Add an "All Subjects (Mixed)" card as shown in screenshot --}}
+        {{-- Extra card: a mixed quiz across all subjects --}}
         <div class="subject-card">
             <div class="subject-icon" style="background: #e3f2fd; color: #1976d2;">🌀</div>
             <h3 style="font-size: 1.1rem; margin-bottom: 4px;">All Subjects (Mixed)</h3>

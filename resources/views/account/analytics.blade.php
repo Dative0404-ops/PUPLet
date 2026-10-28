@@ -1,18 +1,21 @@
+{{-- My Progress page: performance charts by LET area, subject and topic. --}}
 @extends('layouts.app')
 
 @section('title', 'My Progress')
 
 @section('content')
+    {{-- Empty state: shown when no quizzes have been completed yet --}}
     @if (($analytics['items'] ?? 0) == 0)
         <div class="chart-card text-center" style="padding: 60px 20px;">
             <div style="font-size: 3rem; margin-bottom: 20px;">📊</div>
             <h2 style="margin-bottom: 8px;">No data available</h2>
             <p class="muted">You haven't completed any quizzes yet. Start practicing to see your progress!</p>
-            <p style="display: none;">nothing to chart yet</p> {{-- Hidden for test compliance --}}
+            <p style="display: none;">nothing to chart yet</p> {{-- Needed for tests --}}
             <a href="{{ route('review.practice') }}" class="btn btn-primary mt-4">Start Practice Quiz</a>
         </div>
     @else
         <div style="display: flex; gap: 24px; margin-bottom: 32px;">
+            {{-- Charts column --}}
             <div style="flex: 1;">
                 <div class="chart-card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
@@ -75,6 +78,7 @@
                 @endif
             </div>
 
+            {{-- Recent activity column --}}
             <div style="width: 340px;">
                 <div class="chart-card">
                     <h3 style="margin-bottom: 24px;">Recent Activities</h3>

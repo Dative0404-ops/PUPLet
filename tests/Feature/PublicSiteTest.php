@@ -137,6 +137,24 @@ class PublicSiteTest extends TestCase
         $this->assertDatabaseCount('users', 0);
     }
 
+    // Guards the contract between the form and its controller: the posted
+    // field names must match what the registration validation requires.
+    public function test_registration_form_renders_the_let_track_fields(): void
+    {
+        // Renders the public registration page.
+        $response = $this->get('/register');
+
+        // The form must post the exam type and specialization the controller needs.
+        $response->assertOk()
+            ->assertSee('name="exam_type"', false)
+            ->assertSee('name="specialization"', false);
+
+        // Both tracks and their majors must be selectable.
+        $response->assertSee('value="elementary"', false)
+            ->assertSee('value="secondary"', false)
+            ->assertSee('value="English"', false);
+    }
+
     // Checks that an email already in use cannot be registered again.
     public function test_registration_rejects_duplicate_email(): void
     {

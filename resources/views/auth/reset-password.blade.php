@@ -1,31 +1,29 @@
-{{-- @extends makes this page inherit the shared layout from layouts/app.blade.php. --}}
+{{-- Reset-password page: choose a new password from the emailed link. --}}
 @extends('layouts.app')
 
-{{-- Sets the browser-tab title via the layout's @yield('title'). --}}
+{{-- Sets the browser tab title. --}}
 @section('title', 'Reset password')
-{{-- Fills the layout's <meta name="description"> slot. --}}
+{{-- Sets the page description for search engines. --}}
 @section('meta_description', 'Choose a new password for your LET Reviewer account.')
 
-{{-- Opens the main content block. --}}
 @section('content')
-    {{-- Centred section holding the reset-password card. --}}
+    {{-- Reset card --}}
     <section class="section">
-        {{-- container-narrow narrows the form width. --}}
         <div class="container container-narrow">
             <div class="form-card">
                 <h1>Choose a new password</h1>
                 <p class="muted">Set a new password for your account and sign in again afterwards.</p>
 
-                {{-- Posts the new password to the password.store route to complete the reset. --}}
+                {{-- Submitting this form saves the new password. --}}
                 <form method="POST" action="{{ route('password.store') }}" novalidate>
-                    {{-- @csrf adds the required anti-CSRF token. --}}
+                    {{-- @csrf is required on every POST form. --}}
                     @csrf
-                    {{-- Hidden field carrying the one-time reset token taken from the signed reset link URL. --}}
+                    {{-- Hidden token from the reset link; the server checks it. --}}
                     <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
                     <div class="field">
                         <label for="email">Email address</label>
-                        {{-- old('email', $request->email): use previous input, else the email passed by the reset link. --}}
+                        {{-- old() refills the email after a failed submit; otherwise use the email from the link. --}}
                         <input id="email" name="email" type="email" value="{{ old('email', $request->email) }}"
                                autocomplete="username" class="@error('email') is-invalid @enderror" required>
                         @error('email')
@@ -35,7 +33,7 @@
 
                     <div class="field">
                         <label for="password">New password</label>
-                        {{-- The new password; its invalid state mirrors the "password" validation errors. --}}
+                        {{-- Shows the invalid style when validation fails. --}}
                         <input id="password" name="password" type="password" autocomplete="new-password"
                                class="@error('password') is-invalid @enderror" required>
                         @error('password')
@@ -45,7 +43,7 @@
 
                     <div class="field">
                         <label for="password_confirmation">Confirm new password</label>
-                        {{-- Must match the password field; Laravel's "confirmed" rule checks this. --}}
+                        {{-- Must match the password field; Laravel checks this automatically. --}}
                         <input id="password_confirmation" name="password_confirmation" type="password"
                                autocomplete="new-password" required>
                     </div>
@@ -55,5 +53,4 @@
             </div>
         </div>
     </section>
-{{-- Closes the content section. --}}
 @endsection

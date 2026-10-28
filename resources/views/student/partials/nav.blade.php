@@ -1,4 +1,6 @@
+{{-- Student sidebar navigation. Admin pages show the admin links below instead. --}}
 <nav class="sidebar-nav">
+    {{-- Student links. On /admin pages the admin block further down is shown instead. --}}
     @if (!request()->is('admin*'))
         <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
             <span>🏠</span> Dashboard
@@ -30,6 +32,7 @@
             </a>
         @endif
     @else
+        {{-- Admin links --}}
         <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
             <span>🏠</span> Dashboard
         </a>

@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Reports students file about faulty questions.
         Schema::create('question_reports', function (Blueprint $table) {
             $table->id();
             $table->foreignId('question_id')->constrained()->cascadeOnDelete();
+            // Nullable: the report stays even if the reporter is deleted.
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->string('reason', 30);
             $table->text('details')->nullable();
+            // Either "open", "resolved" or "dismissed".
             $table->string('status', 20)->default('open');
             $table->text('resolution_note')->nullable();
             $table->foreignId('resolved_by')->nullable()->constrained('users')->nullOnDelete();

@@ -1,7 +1,9 @@
 {{--
-    Saves or removes a question from the student's bookmarks.
+    Bookmark button for one question: saves it or removes it.
 
-    Expects: $question, $bookmarked (array of question ids), $ajax (optional bool).
+    When $ajax is set a plain button is used, so JavaScript can send the
+    request in the background. Otherwise a normal form does the same job
+    when JavaScript is off.
 --}}
 @php($saved = in_array($question->id, $bookmarked, true))
 

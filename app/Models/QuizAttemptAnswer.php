@@ -1,14 +1,14 @@
 <?php
 
-// Declares the namespace so Laravel can autoload this class from app/Models.
+// Lets Laravel find this class automatically.
 namespace App\Models;
 
-// Imports the base Eloquent Model class that this model extends.
+// The base Eloquent model class.
 use Illuminate\Database\Eloquent\Model;
-// Imports the BelongsTo relation type used by attempt() and question().
+// BelongsTo: used by attempt() and question().
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-// Eloquent model recording one served question and its answer within an attempt.
+// One served question and its answer within an attempt.
 class QuizAttemptAnswer extends Model
 {
     /**
@@ -16,7 +16,6 @@ class QuizAttemptAnswer extends Model
      *
      * @var string
      */
-    // Names the table explicitly; Eloquent would otherwise guess "quiz_attempt_answers".
     protected $table = 'quiz_attempt_answers';
 
     /**
@@ -24,17 +23,12 @@ class QuizAttemptAnswer extends Model
      *
      * @var list<string>
      */
-    // Mass assignment whitelist for the per-question answer row.
+    // Columns a form may set. selected_option stays null while the item is skipped.
     protected $fillable = [
-        // The attempt this answer belongs to.
         'quiz_attempt_id',
-        // The question that was served for this position.
         'question_id',
-        // The question's slot number within the attempt.
         'position',
-        // The zero-based option index the student picked; null when skipped.
         'selected_option',
-        // Whether the picked option was correct, set when grading.
         'is_correct',
     ];
 
@@ -43,11 +37,10 @@ class QuizAttemptAnswer extends Model
      *
      * @return array<string, string>
      */
-    // Declares casts applied automatically when attributes are accessed.
+    // Reads is_correct as a real PHP boolean.
     protected function casts(): array
     {
         return [
-            // Coerces the grading flag to a real PHP boolean.
             'is_correct' => 'boolean',
         ];
     }
@@ -55,60 +48,52 @@ class QuizAttemptAnswer extends Model
     /**
      * The attempt this answer belongs to.
      */
-    // BelongsTo relationship back to the parent attempt.
     public function attempt(): BelongsTo
     {
-        // Second argument names the foreign key column explicitly.
+        // The foreign key column is quiz_attempt_id, not the default attempt_id.
         return $this->belongsTo(QuizAttempt::class, 'quiz_attempt_id');
     }
 
     /**
      * The question that was answered.
      */
-    // BelongsTo relationship to the served question.
     public function question(): BelongsTo
     {
-        // Matches questions.id to quiz_attempt_answers.question_id.
         return $this->belongsTo(Question::class);
     }
 
     /**
      * Whether the student picked an option for this item.
      */
-    // Distinguishes an answered item from a skipped one.
     public function isAnswered(): bool
     {
-        // Answered once a selected_option index exists.
+        // Answered once selected_option is set.
         return $this->selected_option !== null;
     }
 
     /**
      * Whether the picked option was correct. Only meaningful after grading.
      */
-    // Reads the stored grading flag.
     public function isCorrect(): bool
     {
-        // Strict comparison against true; ungraded rows stay false.
+        // Strict check on true; ungraded rows stay false.
         return $this->is_correct === true;
     }
 
     /**
      * The letter of the option the student picked, or "-" when skipped.
      */
-    // Produces the letter shown on the review screen.
     public function selectedLabel(): string
     {
-        // Placeholder dash when no option was chosen.
+        // Show a dash when no option was chosen, else ask the question for its letter.
         return $this->selected_option === null
             ? '-'
-            // Otherwise delegate to the question's option letter helper.
             : $this->question->optionLabel($this->selected_option);
     }
 
     /**
      * The student's answer as a letter and its full text, or null when skipped.
      */
-    // Builds a display string like "B. Some answer text".
     public function selectedAnswerText(): ?string
     {
         // Nothing to show when the item was skipped.
@@ -116,12 +101,12 @@ class QuizAttemptAnswer extends Model
             return null;
         }
 
-        // Re-indexes the question's options so the stored index maps directly.
+        // Re-index the question's options so the stored index maps directly.
         $options = array_values($this->question->options ?? []);
-        // Looks up the chosen option's text, guarding an out-of-range index.
+        // Look up the chosen option's text, guarding an out-of-range index.
         $text = $options[$this->selected_option] ?? null;
 
-        // Return null if the text is missing, else the letter plus the text.
+        // Return null when the text is missing; else format as "B. Some answer text".
         return $text === null ? null : $this->selectedLabel().'. '.$text;
     }
 }

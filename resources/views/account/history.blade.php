@@ -1,8 +1,10 @@
+{{-- Quiz history: every practice quiz and mock exam attempt, newest first. --}}
 @extends('layouts.app')
 
 @section('title', 'Quiz history')
 
 @section('content')
+    {{-- Helper that turns a score into a colour class --}}
     @php
         $tone = function (?int $percent) {
             if ($percent === null) {
@@ -26,6 +28,7 @@
             @include('account.partials.nav')
 
             <div class="grid grid-4 stat-grid">
+                {{-- Summary stat cards --}}
                 <div class="card stat-card">
                     <span class="stat-value">{{ $summary['attempts'] }}</span>
                     <span class="stat-label">Submitted attempts</span>
@@ -56,6 +59,7 @@
                 </div>
             </div>
 
+            {{-- Notice shown when unfinished attempts exist --}}
             @if ($summary['open'] > 0)
                 <div class="alert alert-info" role="status">
                     You have {{ $summary['open'] }} unfinished {{ Str::plural('attempt', $summary['open']) }}.
@@ -63,6 +67,7 @@
                 </div>
             @endif
 
+            {{-- Filter links (all, practice, mock) --}}
             <div class="filter-bar">
                 @foreach ($filters as $key => $label)
                     <a href="{{ route('account.history', $key === 'all' ? [] : ['type' => $key]) }}"
@@ -70,6 +75,7 @@
                 @endforeach
             </div>
 
+            {{-- Attempts table --}}
             <div class="table-wrap">
                 <table>
                     <thead>
@@ -150,6 +156,7 @@
                 </table>
             </div>
 
+            {{-- Pagination --}}
             @if ($attempts->hasPages())
                 <nav class="pagination" aria-label="Quiz history pages">
                     @if ($attempts->onFirstPage())

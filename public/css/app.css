@@ -1,5 +1,6 @@
-/* PUP LET Review — Modern UI Styles */
+/* PUP LET Review — site styles */
 
+/* Colour and size variables */
 :root {
     --gold: #ffde23;
     --dark: #7c7a7a;
@@ -18,12 +19,11 @@
     --radius: 8px;
     --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     --sidebar-width: 260px;
-    /* Official PUP logo (transparent PNG, hot-linked from the university site).
-       Single source of truth: the brand badge, the page watermark, the auth
-       panel and the hero banner all read from this variable. */
+    /* Official PUP logo, used by the badge, watermark, auth panel and hero. */
     --pup-logo: url('https://www.pup.edu.ph/about/images/PUPLogo.png');
 }
 
+/* Base styles */
 * {
     box-sizing: border-box;
 }
@@ -44,8 +44,8 @@ body {
     min-height: 100vh;
 }
 
-/* Faint University seal behind every page. Negative z-index keeps it under the
-   content layer, and pointer-events: none keeps it out of the way of clicks. */
+/* Faint University seal behind every page; a negative z-index keeps it behind
+   the content and pointer-events: none keeps it out of the way of clicks. */
 body::before {
     content: '';
     position: fixed;
@@ -90,7 +90,7 @@ p { margin: 0 0 1rem; }
     padding: 0 24px;
 }
 
-/* Sidebar Layout ----------------------------------------------------------- */
+/* Sidebar layout */
 
 .app-wrapper {
     display: flex;
@@ -170,7 +170,7 @@ p { margin: 0 0 1rem; }
     border-top: 1px solid var(--line);
 }
 
-/* Header ------------------------------------------------------------------ */
+/* Site header */
 
 .site-header {
     background: linear-gradient(135deg, #0f0808 0%, #800 100%);
@@ -197,7 +197,7 @@ p { margin: 0 0 1rem; }
 .brand-logo {
     width: 36px;
     height: 36px;
-    /* White disc with the University seal centred inside it. */
+    /* White circle holding the University seal. */
     background: #fff var(--pup-logo) center / contain no-repeat;
     border-radius: 50%;
     display: flex;
@@ -217,7 +217,7 @@ p { margin: 0 0 1rem; }
     font-size: 1rem;
 }
 
-/* Buttons ----------------------------------------------------------------- */
+/* Buttons */
 
 .btn {
     display: inline-flex;
@@ -267,7 +267,7 @@ p { margin: 0 0 1rem; }
     font-size: 0.875rem;
 }
 
-/* Auth Cards -------------------------------------------------------------- */
+/* Login and register pages */
 
 .auth-layout {
     min-height: 100vh;
@@ -287,7 +287,7 @@ p { margin: 0 0 1rem; }
     overflow: hidden;
 }
 
-/* Oversized University seal acting as a watermark on the maroon auth panel. */
+/* Large University seal watermark on the auth panel. */
 .auth-sidebar::before {
     content: '';
     position: absolute;
@@ -344,7 +344,7 @@ p { margin: 0 0 1rem; }
     cursor: pointer;
 }
 
-/* Form Fields ------------------------------------------------------------- */
+/* Form fields */
 
 .field {
     margin-bottom: 24px;
@@ -372,7 +372,7 @@ p { margin: 0 0 1rem; }
     box-shadow: 0 0 0 3px rgba(128, 0, 0, 0.1);
 }
 
-/* Dashboard ---------------------------------------------------------------- */
+/* Dashboard */
 
 .dashboard-header {
     display: flex;
@@ -441,7 +441,7 @@ p { margin: 0 0 1rem; }
     font-weight: 600;
 }
 
-/* Admin Panel -------------------------------------------------------------- */
+/* Admin panel */
 
 .admin-toolbar {
     display: flex;
@@ -472,6 +472,8 @@ p { margin: 0 0 1rem; }
     letter-spacing: 0.05em;
     opacity: 0.7;
 }
+
+/* Tables */
 
 .table-wrap {
     background: #fff;
@@ -506,7 +508,7 @@ tr:last-child td {
     border-bottom: 0;
 }
 
-/* Subject Cards ----------------------------------------------------------- */
+/* Subject cards */
 
 .subject-grid {
     display: grid;
@@ -541,7 +543,7 @@ tr:last-child td {
     margin: 0 auto 20px;
 }
 
-/* Quiz Interface ---------------------------------------------------------- */
+/* Quiz screen */
 
 .quiz-container {
     max-width: 800px;
@@ -601,7 +603,7 @@ tr:last-child td {
     border-color: var(--maroon);
 }
 
-/* Progress and Charts ----------------------------------------------------- */
+/* Progress charts */
 
 .chart-card {
     background: #fff;
@@ -656,7 +658,7 @@ tr:last-child td {
     color: var(--ink);
 }
 
-/* Home Hero --------------------------------------------------------------- */
+/* Home hero */
 
 .home-hero {
     position: relative;
@@ -667,7 +669,7 @@ tr:last-child td {
     padding: 160px 0;
 }
 
-/* University seal anchored to the right of the hero, above the campus photo. */
+/* University seal on the right of the hero, over the photo. */
 .home-hero::after {
     content: '';
     position: absolute;
@@ -681,7 +683,7 @@ tr:last-child td {
     pointer-events: none;
 }
 
-/* Below this width the hero copy spans the full row, so the seal is dropped. */
+/* On narrow screens the hero text fills the row, so the seal is hidden. */
 @media (max-width: 900px) {
     .home-hero::after {
         display: none;
@@ -709,7 +711,7 @@ tr:last-child td {
     gap: 16px;
 }
 
-/* Utility ----------------------------------------------------------------- */
+/* Utility classes */
 
 .section { padding: 80px 0; }
 .bg-white { background: #fff; }
@@ -717,6 +719,7 @@ tr:last-child td {
 .mb-0 { margin-bottom: 0; }
 .mt-4 { margin-top: 1.5rem; }
 
+/* Small-screen adjustments */
 @media (max-width: 768px) {
     .app-sidebar { transform: translateX(-100%); transition: transform 0.3s; }
     .app-main { margin-left: 0; }

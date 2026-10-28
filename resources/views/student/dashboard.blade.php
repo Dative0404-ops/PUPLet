@@ -1,3 +1,4 @@
+{{-- Student dashboard: progress stats, resume card and recommendations. --}}
 @extends('layouts.app')
 
 @section('title', 'Dashboard')
@@ -12,7 +13,7 @@
         </div>
     </div>
 
-    {{-- Dashboard Stats --}}
+    {{-- Summary stat cards --}}
     <div class="stat-grid">
         <div class="stat-card green">
             <div class="stat-top">
@@ -56,7 +57,7 @@
 
     <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 32px;">
         <div>
-            {{-- Resume Section --}}
+            {{-- Continue where you left off --}}
             <div class="chart-card" style="border-left: 4px solid var(--maroon); margin-bottom: 32px;">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
                     <div>
@@ -82,7 +83,7 @@
                 @endif
             </div>
 
-            {{-- Subject Performance --}}
+            {{-- Performance per LET area and subject --}}
             <div class="chart-card" style="margin-bottom: 32px;">
                 <h3 style="margin-bottom: 24px;">Subject performance</h3>
                 @foreach ($performance as $area)
@@ -106,7 +107,7 @@
                 @endforeach
             </div>
 
-            {{-- Recommended Topics --}}
+            {{-- Topics to practise next --}}
             <div class="chart-card">
                 <h3 style="margin-bottom: 24px;">Recommended topics</h3>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -135,7 +136,7 @@
         </div>
 
         <div>
-            {{-- Upcoming Goals --}}
+            {{-- Upcoming study goals --}}
             <div class="chart-card">
                 <h3 style="margin-bottom: 20px;">Upcoming study goals</h3>
                 @forelse ($goals['sessions'] as $session)
@@ -155,7 +156,7 @@
                 <a href="{{ route('account.planner') }}" class="btn btn-secondary btn-block btn-sm" style="margin-top: 8px;">Open Planner</a>
             </div>
 
-            {{-- Subject Cards (Compact) --}}
+            {{-- Subject shortcuts --}}
             <div style="margin-top: 32px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                     <h3 style="margin: 0;">Your Subjects</h3>

@@ -42,6 +42,16 @@ The project supports two environments via the `.env` file:
   - To switch, comment out `DB_CONNECTION=sqlite` and uncomment the `pgsql` block in your `.env`.
   - See [DATABASE_DOCUMENTATION.md](DATABASE_DOCUMENTATION.md) for details on triggers and backups.
 
+### Pushing local data up to Supabase
+You can keep using fast SQLite locally and still get your data into Supabase:
+```bash
+php artisan db:sync-supabase
+```
+This copies every application table (users, subjects, questions, attempts, …) from local SQLite into
+Supabase and skips rows that are already there, so nothing is overwritten or deleted and the command
+is safe to re-run. It reads the `SUPABASE_DB_*` values in `.env`; use the **connection pooler** host
+(`aws-0-<region>.pooler.supabase.com`), because the direct `db.<ref>.supabase.co` host is IPv6-only.
+
 ## 🧪 Testing
 We use PHPUnit for end-to-end feature testing. Tests are isolated and run in-memory, so they won't affect your local or live data.
 ```bash

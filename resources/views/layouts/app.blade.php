@@ -1,3 +1,4 @@
+{{-- Main layout: wraps every page with the sidebar, top header and footer. --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,18 +8,18 @@
     <meta name="description" content="@yield('meta_description', 'An online reviewer for the Licensure Examination for Teachers (LET).')">
     <link rel="icon" href="{{ asset('favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    {{-- Google Fonts - Inter --}}
+    {{-- Inter font used across the site. --}}
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
     @auth
         <div class="app-wrapper">
-            {{-- Sidebar for Authenticated Users --}}
+            {{-- Sidebar (shown to logged-in users) --}}
             <aside class="app-sidebar">
                 <div class="sidebar-header">
                     <a class="brand" href="{{ route('dashboard') }}" style="color: var(--maroon);">
-                        {{-- PUP seal; the image URL lives in the --pup-logo CSS variable. --}}
+                        {{-- PUP logo; the image comes from the --pup-logo CSS variable. --}}
                         <div class="brand-logo" role="img" aria-label="PUP logo" style="background-color: var(--maroon);"></div>
                         <div style="font-size: 1rem; line-height: 1.1;">
                             PUPLeT
@@ -40,7 +41,7 @@
             </aside>
 
             <div class="app-content">
-                {{-- Top Header for Authenticated Users --}}
+                {{-- Top header (shown to logged-in users) --}}
                 <header class="app-header">
                     <div style="display: flex; align-items: center; gap: 12px;">
                         <button class="nav-toggle" style="display: none;">☰</button>
@@ -74,6 +75,7 @@
                 </header>
 
                 <main style="padding: 32px;">
+                    {{-- Flash message and validation errors --}}
                     @if (session('status'))
                         <div class="alert alert-success" style="margin-top: 0; margin-bottom: 24px;">{{ session('status') }}</div>
                     @endif
@@ -93,7 +95,7 @@
             </div>
         </div>
     @else
-        {{-- Layout for Guests --}}
+        {{-- Guest header, content and footer (shown when logged out) --}}
         <header class="site-header">
             <div class="container">
                 <a class="brand" href="{{ route('home') }}">

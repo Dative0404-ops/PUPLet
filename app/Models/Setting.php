@@ -1,16 +1,15 @@
 <?php
 
-// Declares the namespace so Laravel can autoload this class from app/Models.
+// Lets Laravel find this class automatically.
 namespace App\Models;
 
-// Imports the base Eloquent Model class that this model extends.
+// The base Eloquent model class.
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * A site-wide setting, stored as a key and value pair. Settings without a row
- * fall back to the default the code declares for them.
+ * A site-wide setting, stored as a key and value pair. A setting with no row
+ * falls back to the default the code declares for it.
  */
-// Eloquent model backing the key/value settings store used across the app.
 class Setting extends Model
 {
     /**
@@ -18,39 +17,33 @@ class Setting extends Model
      *
      * @var list<string>
      */
-    // Mass assignment whitelist: the pair of columns the table holds.
+    // The only two columns: key names the setting, value holds it.
     protected $fillable = [
-        // The unique name that identifies the setting.
         'key',
-        // The stored value; null means "no value set" and callers use their default.
         'value',
     ];
 
     /**
      * The primary key of a setting is its key.
      */
-    // Overrides Eloquent's default "id" primary key with the key column.
     protected $primaryKey = 'key';
 
     /**
      * Keys are strings, not auto-incrementing integers.
      */
-    // Tells Eloquent not to expect an auto-incrementing numeric id.
     public $incrementing = false;
 
     /**
      * The key type.
      */
-    // Declares the primary key is a string so Eloquent binds it correctly.
     protected $keyType = 'string';
 
     /**
      * The stored value of one setting.
      */
-    // Static helper reading a single setting with an optional fallback.
     public static function get(string $key, ?string $default = null): ?string
     {
-        // Queries one row's value column, falling back when the row is missing.
+        // Read the value column for this key; use $default when no row exists.
         return static::query()->where('key', $key)->value('value') ?? $default;
     }
 
@@ -60,32 +53,27 @@ class Setting extends Model
      * @param  list<string>  $keys
      * @return array<string, string|null>
      */
-    // Static helper reading many settings efficiently to avoid N+1 queries.
     public static function many(array $keys): array
     {
-        // Fetches all matching rows at once, keyed by the key column for quick lookup.
+        // Read all matching rows at once, keyed by the key column.
         $stored = static::query()->whereIn('key', $keys)->pluck('value', 'key');
 
-        // Prepares the result array in the caller's requested order.
         $values = [];
 
-        // Walks the requested keys so every one appears in the result.
+        // Walk the requested keys so every one appears in the result, even if missing.
         foreach ($keys as $key) {
-            // Stores the found value, or null when no row exists for that key.
             $values[$key] = $stored->get($key);
         }
 
-        // Returns the key => value map.
         return $values;
     }
 
     /**
      * Store a value for one setting.
      */
-    // Static helper writing a single setting, creating the row if needed.
     public static function put(string $key, ?string $value): void
     {
-        // Updates the existing row or inserts a new one, matching on the key.
+        // Update the existing row, or insert one when the key is new.
         static::query()->updateOrCreate(['key' => $key], ['value' => $value]);
     }
 
@@ -94,12 +82,10 @@ class Setting extends Model
      *
      * @param  array<string, string|null>  $values
      */
-    // Static helper writing a batch of settings.
     public static function putMany(array $values): void
     {
-        // Iterates the key => value pairs and persists each one.
+        // Save each key => value pair through put().
         foreach ($values as $key => $value) {
-            // Delegates to put() to reuse the upsert logic.
             static::put($key, $value);
         }
     }

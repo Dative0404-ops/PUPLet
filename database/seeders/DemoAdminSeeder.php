@@ -162,6 +162,7 @@ class DemoAdminSeeder extends Seeder
      */
     public function run(): void
     {
+        // Create the admin account used for the defense demo.
         $admin = User::updateOrCreate(
             ['email' => 'admin@letreviewer.test'],
             [
@@ -173,6 +174,7 @@ class DemoAdminSeeder extends Seeder
 
         $questions = [];
 
+        // Create or update one question per demo row, keyed by its short name.
         foreach (self::QUESTIONS as $row) {
             [$key, $area, $subject, $topic, $prompt, $options, $correct, $explanation, $reference, $source, $status, $verified, $order] = $row;
 
@@ -193,11 +195,14 @@ class DemoAdminSeeder extends Seeder
             );
         }
 
+        // The demo student filed these reports; may be missing on a fresh database.
         $student = User::where('email', 'demo@letreviewer.test')->first();
 
+        // Create one report per demo row.
         foreach (self::REPORTS as [$key, $reason, $details, $status, $note]) {
             $question = $questions[$key] ?? null;
 
+            // Skip a report whose question was not created.
             if ($question === null) {
                 continue;
             }

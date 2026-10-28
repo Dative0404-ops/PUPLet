@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Quizzes students take. A row is a practice quiz or a mock exam.
         Schema::create('quizzes', function (Blueprint $table) {
             $table->id();
-            // Practice quizzes belong to one topic; a mock examination draws
-            // its items from every area, so it has no single topic.
+            // Optional topic link: a practice quiz belongs to one topic, but a mock
+            // exam draws items from every area and has none.
             $table->foreignId('topic_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('type', 20)->default('practice');
             $table->string('title', 150);
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->index(['type', 'topic_id']);
         });
 
+        // One row per student attempt at a quiz.
         Schema::create('quiz_attempts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
@@ -33,6 +35,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('answered_items')->default(0);
             $table->unsignedSmallInteger('score')->default(0);
             $table->timestamp('started_at');
+            // Null while the attempt is still running.
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
 

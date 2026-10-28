@@ -1,8 +1,10 @@
+{{-- One study goal row: details, complete/remove buttons, and an edit form. --}}
 @php
     $isDone = $goal->completed_at !== null;
 @endphp
 
 <div class="goal-row {{ $isDone ? 'is-done' : '' }}">
+    {{-- Goal details --}}
     <div class="goal-main">
         <strong>{{ $goal->title }}</strong>
         <span class="goal-meta">
@@ -29,6 +31,7 @@
         </span>
     </div>
 
+    {{-- Mark done / remove buttons --}}
     <div class="goal-actions">
         <form method="POST" action="{{ route('account.planner.complete', $goal) }}">
             @csrf
@@ -44,6 +47,7 @@
         </form>
     </div>
 
+    {{-- Collapsible edit and reschedule form --}}
     <details class="goal-edit">
         <summary>Edit or reschedule</summary>
 

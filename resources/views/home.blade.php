@@ -1,10 +1,11 @@
+{{-- Public page: landing page with the hero, highlights, and review coverage. --}}
 @extends('layouts.app')
 
 @section('title', 'Home')
 @section('meta_description', 'LET Reviewer is an online review platform for the Licensure Examination for Teachers.')
 
 @section('content')
-    {{-- Modern Home Hero Section --}}
+    {{-- Hero banner --}}
     <section class="home-hero">
         <div class="container">
             <div class="hero-content">
@@ -20,7 +21,7 @@
         </div>
     </section>
 
-    {{-- Feature Icons Strip --}}
+    {{-- Feature highlights --}}
     <section style="background: #fff; padding: 40px 0; border-bottom: 1px solid var(--line);">
         <div class="container">
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;">
@@ -49,7 +50,7 @@
         </div>
     </section>
 
-    {{-- How it works --}}
+    {{-- Review coverage --}}
     <section class="section">
         <div class="container text-center">
             <h2 style="margin-bottom: 48px;">Complete Review Coverage</h2>

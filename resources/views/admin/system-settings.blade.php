@@ -1,8 +1,10 @@
+{{-- Admin page: site-wide settings for the whole platform. --}}
 @extends('layouts.app')
 
 @section('title', 'System Settings')
 
 @section('content')
+    {{-- Page heading --}}
     <section class="dashboard-hero admin-hero">
         <div class="container">
             <span class="eyebrow">Admin panel</span>
@@ -16,9 +18,11 @@
 
     <section class="section">
         <div class="container">
+            {{-- Tab bar shared by every admin page. --}}
             @include('admin.partials.nav')
 
             <div class="admin-form-layout">
+                {{-- Form holding all the system settings --}}
                 <div class="form-card">
                     <form method="POST" action="{{ route('admin.system-settings.update') }}">
                         @csrf
@@ -142,6 +146,7 @@
                     </form>
                 </div>
 
+                {{-- Sidebar summarising what the settings control --}}
                 <aside class="admin-form-side">
                     <div class="card">
                         <h3>What these settings change</h3>

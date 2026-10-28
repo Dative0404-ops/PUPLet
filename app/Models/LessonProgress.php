@@ -1,14 +1,14 @@
 <?php
 
-// Declares the namespace so Laravel can autoload this class from app/Models.
+// Lets Laravel find this class automatically.
 namespace App\Models;
 
-// Imports the base Eloquent Model class that this model extends.
+// The base Eloquent model class.
 use Illuminate\Database\Eloquent\Model;
-// Imports the BelongsTo relation type used for the user() and lesson() methods.
+// BelongsTo: a progress row belongs to one user and one lesson.
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-// Eloquent model tracking how far one student has read one lesson.
+// Tracks how far one student has read one lesson.
 class LessonProgress extends Model
 {
     /**
@@ -16,7 +16,6 @@ class LessonProgress extends Model
      *
      * @var string
      */
-    // Names the table explicitly because Eloquent's default plural is ambiguous here.
     protected $table = 'lesson_progresses';
 
     /**
@@ -24,17 +23,12 @@ class LessonProgress extends Model
      *
      * @var list<string>
      */
-    // Mass assignment whitelist for the progress row.
+    // Columns a form may set. completed_at stays null until the lesson is finished.
     protected $fillable = [
-        // The student this progress record belongs to.
         'user_id',
-        // The lesson being tracked.
         'lesson_id',
-        // Completion percentage (or similar progress value) for the lesson.
         'progress',
-        // Timestamp of the student's most recent visit to the lesson.
         'last_viewed_at',
-        // Timestamp when the student finished the lesson; null while unfinished.
         'completed_at',
     ];
 
@@ -43,13 +37,11 @@ class LessonProgress extends Model
      *
      * @return array<string, string>
      */
-    // Declares casts so these timestamps become Carbon date objects, not raw strings.
+    // Reads these timestamps as Carbon date objects, not raw strings.
     protected function casts(): array
     {
         return [
-            // Converts the stored value into a Carbon datetime instance.
             'last_viewed_at' => 'datetime',
-            // Converts the stored value into a Carbon datetime instance.
             'completed_at' => 'datetime',
         ];
     }
@@ -57,30 +49,25 @@ class LessonProgress extends Model
     /**
      * The student this record belongs to.
      */
-    // BelongsTo relationship linking back to the owning student account.
     public function user(): BelongsTo
     {
-        // Matches users.id to lesson_progresses.user_id.
         return $this->belongsTo(User::class);
     }
 
     /**
      * The lesson being tracked.
      */
-    // BelongsTo relationship linking back to the lesson that was read.
     public function lesson(): BelongsTo
     {
-        // Matches lessons.id to lesson_progresses.lesson_id.
         return $this->belongsTo(Lesson::class);
     }
 
     /**
      * Whether the lesson has been finished.
      */
-    // Convenience check the views use instead of testing the timestamp directly.
     public function isCompleted(): bool
     {
-        // Finished when a completed_at timestamp exists.
+        // Finished once completed_at is set.
         return $this->completed_at !== null;
     }
 }

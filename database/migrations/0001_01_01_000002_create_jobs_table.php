@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Queued jobs waiting to run.
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->string('queue')->index();
+            // The saved job data.
             $table->longText('payload');
             $table->unsignedTinyInteger('attempts');
             $table->unsignedInteger('reserved_at')->nullable();
@@ -21,6 +23,7 @@ return new class extends Migration
             $table->unsignedInteger('created_at');
         });
 
+        // Groups of queued jobs tracked together as one batch.
         Schema::create('job_batches', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('name');
@@ -34,12 +37,15 @@ return new class extends Migration
             $table->integer('finished_at')->nullable();
         });
 
+        // Jobs that failed, kept so they can be retried or inspected.
         Schema::create('failed_jobs', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
             $table->text('connection');
             $table->text('queue');
+            // The saved job data.
             $table->longText('payload');
+            // The error message and trace from the failure.
             $table->longText('exception');
             $table->timestamp('failed_at')->useCurrent();
         });

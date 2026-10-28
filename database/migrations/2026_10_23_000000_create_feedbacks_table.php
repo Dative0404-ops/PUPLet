@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Contact-form messages sent by visitors.
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);

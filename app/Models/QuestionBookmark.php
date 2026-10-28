@@ -1,14 +1,14 @@
 <?php
 
-// Declares the namespace so Laravel can autoload this class from app/Models.
+// Lets Laravel find this class automatically.
 namespace App\Models;
 
-// Imports the base Eloquent Model class that this model extends.
+// The base Eloquent model class.
 use Illuminate\Database\Eloquent\Model;
-// Imports the BelongsTo relation type used by user() and question().
+// BelongsTo: used by user() and question().
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-// Pivot-style model recording one question saved by one student (bookmark).
+// One question saved by one student (a bookmark).
 class QuestionBookmark extends Model
 {
     /**
@@ -16,7 +16,6 @@ class QuestionBookmark extends Model
      *
      * @var string
      */
-    // Names the table explicitly; Eloquent would otherwise guess "question_bookmarks".
     protected $table = 'question_bookmarks';
 
     /**
@@ -24,31 +23,25 @@ class QuestionBookmark extends Model
      *
      * @var list<string>
      */
-    // Mass assignment whitelist; the AJAX toggle creates rows with these two keys.
+    // The bookmark toggle creates rows with these two columns.
     protected $fillable = [
-        // The student who saved the question.
         'user_id',
-        // The question that was saved.
         'question_id',
     ];
 
     /**
      * The student who saved the question.
      */
-    // BelongsTo relationship linking to the owning student account.
     public function user(): BelongsTo
     {
-        // Matches users.id to question_bookmarks.user_id.
         return $this->belongsTo(User::class);
     }
 
     /**
      * The question that was saved.
      */
-    // BelongsTo relationship linking to the bookmarked question.
     public function question(): BelongsTo
     {
-        // Matches questions.id to question_bookmarks.question_id.
         return $this->belongsTo(Question::class);
     }
 }

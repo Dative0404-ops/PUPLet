@@ -115,6 +115,7 @@ class LetCatalogSeeder extends Seeder
      */
     public function run(): void
     {
+        // Walk the catalog and create a subject, topic, lesson and quiz for each entry.
         foreach (self::CATALOG as $area => $subjects) {
             $subjectOrder = 0;
 
@@ -132,11 +133,13 @@ class LetCatalogSeeder extends Seeder
                         ['sort_order' => ++$topicOrder],
                     );
 
+                    // Each topic gets one review lesson.
                     Lesson::updateOrCreate(
                         ['topic_id' => $topic->id, 'title' => 'Review notes: '.$topicName],
                         ['estimated_minutes' => 10 + ($topicOrder * 5)],
                     );
 
+                    // Each topic also gets one practice quiz.
                     Quiz::updateOrCreate(
                         ['topic_id' => $topic->id, 'title' => 'Practice set: '.$topicName],
                         ['item_count' => 20, 'time_limit_minutes' => 25],

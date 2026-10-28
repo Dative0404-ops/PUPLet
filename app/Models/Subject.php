@@ -1,14 +1,14 @@
 <?php
 
-// Declares the namespace so Laravel can autoload this class from app/Models.
+// Lets Laravel find this class automatically.
 namespace App\Models;
 
-// Imports the base Eloquent Model class that this model extends.
+// The base Eloquent model class.
 use Illuminate\Database\Eloquent\Model;
-// Imports the HasMany relation type used by the topics() method.
+// HasMany: used by topics().
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-// Eloquent model representing a LET subject (an area of the examination).
+// A LET subject (an area of the examination).
 class Subject extends Model
 {
     /**
@@ -16,13 +16,10 @@ class Subject extends Model
      *
      * @var array<string, string>
      */
-    // Maps each stored area key to the label shown to students and admins.
+    // Stored area key => label shown to students and admins.
     public const AREA_LABELS = [
-        // General Education area label.
         'gen_ed' => 'General Education',
-        // Professional Education area label.
         'prof_ed' => 'Professional Education',
-        // Specialization (major) area label.
         'specialization' => 'Specialization',
     ];
 
@@ -31,33 +28,27 @@ class Subject extends Model
      *
      * @var list<string>
      */
-    // Mass assignment whitelist for subject columns.
+    // Columns a form may set. area is one of the AREA_LABELS keys above.
     protected $fillable = [
-        // The LET area this subject sits in (one of the AREA_LABELS keys).
         'area',
-        // The subject name, such as "English" or "Mathematics".
         'name',
-        // Manual ordering value used to sequence subjects on screen.
         'sort_order',
     ];
 
     /**
      * The topics covered under this subject.
      */
-    // HasMany relationship: one subject contains many topics.
     public function topics(): HasMany
     {
-        // Matches topics.subject_id to this subject's id.
         return $this->hasMany(Topic::class);
     }
 
     /**
      * The readable label of the area this subject belongs to.
      */
-    // Returns the area's label, falling back to the raw area value.
     public function areaLabel(): string
     {
-        // Looks up AREA_LABELS, defaulting to the stored area string.
+        // Look up AREA_LABELS, falling back to the stored area string.
         return self::AREA_LABELS[$this->area] ?? $this->area;
     }
 }
