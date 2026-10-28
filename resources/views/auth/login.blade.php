@@ -11,7 +11,7 @@
             <div class="brand" style="position: absolute; top: 60px; left: 60px;">
                 <div class="brand-logo" role="img" aria-label="PUP logo"></div>
                 <div>
-                    PUPleT
+                    PUPLeT
                     <small style="display: block; font-size: 0.65rem; opacity: 0.8;">Learn &middot; Practice &middot; Pass</small>
                 </div>
             </div>

@@ -99,7 +99,7 @@ p { margin: 0 0 1rem; }
 
 .app-sidebar {
     width: var(--sidebar-width);
-    background: var(--surface);
+    background: linear-gradient(135deg, #0f0808 0%, #800 100%);
     border-right: 1px solid var(--line);
     display: flex;
     flex-direction: column;
@@ -133,7 +133,7 @@ p { margin: 0 0 1rem; }
 
 .sidebar-header {
     padding: 24px 20px;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--dark);
 }
 
 .sidebar-nav {
@@ -147,7 +147,7 @@ p { margin: 0 0 1rem; }
     align-items: center;
     gap: 12px;
     padding: 12px 20px;
-    color: var(--muted);
+    color: var(--surface);
     font-weight: 500;
     font-size: 0.95rem;
 }
