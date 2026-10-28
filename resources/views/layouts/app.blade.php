@@ -17,11 +17,11 @@
             {{-- Sidebar for Authenticated Users --}}
             <aside class="app-sidebar">
                 <div class="sidebar-header">
-                    <a class="brand" href="{{ route('dashboard') }}" style="color: var(--maroon);">
+                    <a class="brand" href="{{ route('dashboard') }}" style="color: var(--surface);">
                         {{-- PUP seal; the image URL lives in the --pup-logo CSS variable. --}}
                         <div class="brand-logo" role="img" aria-label="PUP logo" style="background-color: var(--maroon);"></div>
                         <div style="font-size: 1rem; line-height: 1.1;">
-                            PUPLeT
+                            PUP LET Review
                             <small style="display: block; font-size: 0.65rem; color: var(--muted);">Learn &middot; Practice &middot; Pass</small>
                         </div>
                     </a>
@@ -99,7 +99,7 @@
                 <a class="brand" href="{{ route('home') }}">
                     <div class="brand-logo" role="img" aria-label="PUP logo"></div>
                     <div>
-                        PUPLeT
+                        PUP LET Review
                         <small style="display: block; font-size: 0.65rem; opacity: 0.8;">Learn &middot; Practice &middot; Pass</small>
                     </div>
                 </a>
@@ -142,7 +142,7 @@
         <footer class="site-footer" style="background: linear-gradient(135deg, #0f0808 0%, rgb(68, 6, 6) 100%); color: #fff; padding: 30px 0; border-top: 2px solid var(--dark);">
             <div class="container">
                 <div style="text-align: center; opacity: 0.8; font-size: 0.9rem;">
-                    PUPLeT Review &middot; Learn &middot; Practice &middot; Pass
+                    PUP LET Review &middot; Learn &middot; Practice &middot; Pass
                 </div>
             </div>
         </footer>
